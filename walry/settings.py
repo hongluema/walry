@@ -37,9 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'xadmin',
-    'crispy_forms',
-    'reversion',
     'weixin',
 ]
 from django.conf import global_settings
