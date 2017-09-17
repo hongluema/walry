@@ -28,9 +28,20 @@
                 <td>{{ t.pub_time|date:"Y-m-j G:i:s" }}</td>
                 <td>{{ t.r_amount }}</td>
                 <td>{{ t.t_amount }}</td>
+                <td id="delete" name="id" value="{{ t.id }}">删除</td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
+    <script>
+        $('#delete').on('click',function () {
+            var val = this.val();
+            $.get("/weixin/deleteTask/?id="+val,
+                function(data) {
+                    console.log(data["status"]);
+                    console.log(data["task"]);
+                },'json');
+        })
+    </script>
 </body>
 </html>
