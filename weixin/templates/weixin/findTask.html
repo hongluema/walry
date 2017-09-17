@@ -37,14 +37,16 @@
     </table>
     <script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
     <script>
-        $('#delete').on('click',function () {
-            var val = $('#delete').val();
-            console.log("val "+val);
-            $.get("/weixin/deleteTask/?id="+val,
-                function(data) {
-                    console.log(data["status"]);
-                    console.log(data["task"]);
-                },'json');
+        $(document).ready(function () {
+            $('#delete').on('click',function () {
+                var val = $('#delete').val();
+                console.log("val "+val);
+                $.get("/weixin/deleteTask/?id="+val,
+                    function(data) {
+                        console.log(data["status"]);
+                        console.log(data["task"]);
+                    },'json');
+            })
         })
     </script>
 ﻿
