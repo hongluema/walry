@@ -19,6 +19,6 @@ def find_task(request):
         #     print "start..."
         #     print ">>>id:", t["id"], "uid:", t["user_id"], "时间：", t["pub_time"], "剩余金额：", t["r_amount"], "总金额:", t[
         #         "t_amount"]
-        return render(request,'findTask.html')
+        return render(request,'weixin/findTask.html')
     else:
-        return render(request, 'findTask.html')
+        return render(request, 'weixin/findTask.html')
