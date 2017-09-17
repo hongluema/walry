@@ -1,3 +1,20 @@
 from django.shortcuts import render
-
+import MySQLdb
+from MySQLdb.cursors import DictCursor
 # Create your views here.
+
+def find_task(request):
+    user_id = request.POST["uid"]
+    conn = MySQLdb.connect(host="570ddef683032.sh.cdb.myqcloud.com", user='root', passwd='N205U89KSY8X', port=5394)
+    cursor = conn.cursor(DictCursor)
+    cursor.execute("use community")
+    sql = "select * from message where user_id=%s"
+    cursor.execute(sql, (user_id,))
+    tasks = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    # for t in tasks:
+    #     print "start..."
+    #     print ">>>id:", t["id"], "uid:", t["user_id"], "时间：", t["pub_time"], "剩余金额：", t["r_amount"], "总金额:", t[
+    #         "t_amount"]
+    return render(request,'findTask.html')
