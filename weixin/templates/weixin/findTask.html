@@ -38,7 +38,7 @@
     <script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
     <script>
         $('#delete').on('click',function () {
-            var val = $(this).val();
+            var val = $(this).val;
             console.log("val "+val);
             $.get("/weixin/deleteTask/?id="+val,
                 function(data) {
