@@ -32,7 +32,7 @@ def delete_task(request):
     cursor.execute("use community")
     sql = "select * from message where id=%s"
     cursor.execute(sql, (id,))
-    task = cursor.fetone()
+    task = cursor.fetchone()
     cursor.close()
     conn.close()
     return JsonResponse({"status":200,"task":task})
