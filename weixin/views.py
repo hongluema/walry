@@ -33,6 +33,7 @@ def delete_task(request):
     sql = "delete from message where id=%s"
     cursor.execute(sql, (id,))
     task = cursor.fetchone()
+    conn.commit()
     cursor.close()
     conn.close()
     return JsonResponse({"status":200,"task":task})
