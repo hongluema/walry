@@ -30,7 +30,7 @@ def delete_task(request):
     conn = MySQLdb.connect(host="570ddef683032.sh.cdb.myqcloud.com", user='root', passwd='N205U89KSY8X', port=5394)
     cursor = conn.cursor(DictCursor)
     cursor.execute("use community")
-    sql = "select * from message where id=%s"
+    sql = "delete from message where id=%s"
     cursor.execute(sql, (id,))
     task = cursor.fetchone()
     cursor.close()
