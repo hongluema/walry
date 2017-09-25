@@ -1,6 +1,6 @@
 # encoding: utf-8
 from django.shortcuts import render
-from django.contrib.auth import authenticate,login
+from django.contrib.auth import authenticate,login,logout
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 
@@ -31,3 +31,8 @@ def userlogin(request):
 #需要去settings.py中设置一下LOGIN_URL
 def hello(request):
     return HttpResponse("Hello!")
+
+#退出登录
+def userlogout(request):
+    logout(request)
+    return HttpResponse("退出登录！")
