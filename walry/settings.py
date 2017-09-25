@@ -26,8 +26,9 @@ SECRET_KEY = 'puhf$+_m_=2whnba*=k1z)%a&z=h@&w+lb9+fiuc&apebf@=j%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["hust.walry.top"]
+ALLOWED_HOSTS = ["*"]
 
+LOGIN_URL = '/users/login/' #这是自己设置的，用户验证登录跳转，如果没有登录就会跳转到这个路由
 
 # Application definition
 
