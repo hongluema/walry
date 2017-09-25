@@ -1,7 +1,7 @@
 # encoding: utf-8
 from django.shortcuts import render
 from django.contrib.auth import authenticate,login,logout
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
@@ -20,7 +20,7 @@ def userlogin(request):
             1. request.session[SESSION_KEY] = user._meta.pk.value_to_string(user) #用户的信息存放在request.session里面
             2. request.user = user #将当前登录的对象放到request.user中
             """
-            return HttpResponse("用户登录成功")
+            return HttpResponseRedirect(request.GET.get("next",'/')) #登录成功后跳转next的页面，没有next就跳转首页
         else:
             #用户名与密码不匹配
             return HttpResponse("用户登录失败")
@@ -35,4 +35,9 @@ def hello(request):
 #退出登录
 def userlogout(request):
     logout(request)
+    """
+    从logout的源码可以看出，logout()这个函数主要做了两步：
+    1. request.session.flush()  #清空了session
+    2. request.user = AnonymousUser() #设置当前登录成功的用户为游客
+    """
     return HttpResponse("退出登录！")
