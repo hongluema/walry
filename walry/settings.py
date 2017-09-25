@@ -26,7 +26,7 @@ SECRET_KEY = 'puhf$+_m_=2whnba*=k1z)%a&z=h@&w+lb9+fiuc&apebf@=j%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["hust.walry.top"]
+ALLOWED_HOSTS = ["hust.walry.top","*"]
 
 
 # Application definition
