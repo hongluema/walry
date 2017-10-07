@@ -13,7 +13,7 @@ class UserRegistrationForm(forms.ModelForm):
 
     def clean_password2(self): #固定格式，对一个表单某一个数据字段检验必须使用clean_开头加上该字段为函数名，如果有两个字段需要验证可以使用两个这样的函数
         cd = self.cleaned_data #这个也是固定的
-        if cd["password"] != cd["passwords"]:
+        if cd["password"] != cd["password2"]:
             raise forms.ValidationError("密码不匹配")
         return cd["password2"] #返回值也是固定的
 
