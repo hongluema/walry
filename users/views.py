@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate,login,logout
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
+from django.views.generic import View
 
 # Create your views here.
 def userlogin(request):
@@ -41,3 +42,14 @@ def userlogout(request):
     2. request.user = AnonymousUser() #设置当前登录成功的用户为游客
     """
     return HttpResponse("退出登录！")
+
+
+class UserView(View):
+
+    def get(self,request):
+        #get请求将执行这个函数
+        return render(request,'users/create.html')
+
+    def post(self,request):
+        #post请求将执行这个函数
+        pass
