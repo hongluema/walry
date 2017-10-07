@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate,login,logout
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.views.generic import View
+from users.models import Users
 
 # Create your views here.
 def userlogin(request):
@@ -52,4 +53,10 @@ class UserView(View):
 
     def post(self,request):
         #post请求将执行这个函数
-        pass
+        data = request.POST
+        print(">>>request的数据:",data)
+        u = Users()
+        u.username = data.get("username","")
+        u.password = data.get("password","")
+        u.email = data.get("email","")
+        return HttpResponse("创建成功")
