@@ -5,22 +5,12 @@
     <title>Title</title>
 </head>
 <body>
+<h1>注册用户</h1>
+    <p>请填写下面的表格注册用户</p>
     <form method="post" action="." novalidate="novalidate">
         {% csrf_token %}
-        <ul>
-            <li>
-                <input type="text" name="username">
-            </li>
-            <li>
-                <input type="password" name="password">
-            </li>
-            <li>
-                <input type="email" name="email">
-            </li>
-            <li>
-                <input type="submit" value="创建">
-            </li>
-        </ul>
+        {{ user_form.as_p }}
+        <p><input type="submit" value="注册"></p>
     </form>
 </body>
 </html>

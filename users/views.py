@@ -5,6 +5,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.views.generic import View
 from users.models import Users
+from django.contrib.auth.models import User
+from users.forms import LoginForm,UserRegistrationForm
 
 # Create your views here.
 def userlogin(request):
@@ -49,14 +51,34 @@ class UserView(View):
 
     def get(self,request):
         #get请求将执行这个函数
-        return render(request,'users/create.html')
+        user_form = UserRegistrationForm()
+        return render(request,'users/create.html',{"user_form":user_form})
 
     def post(self,request):
         #post请求将执行这个函数
+        user_form = UserRegistrationForm(request.POST)
+        if user_form.is_valid():
+            cd = user_form.cleaned_data
+            new_user = user_form.save(commit=False)
+            new_user.set_password(cd["password"])
+            new_user.save()
+            return render(request, 'users/register_done.html', {"new_user": new_user})
+        return HttpResponse("注册失败")
+
+        """
         data = request.POST
         print(">>>request的数据:",data)
+        user = User()
+        user.username = data.get("username","")
+        user.email = data.get("email","")
+        user.password = data.get("password","")
+        user.save()
+        #或者
+        #User.objects.create_user(username=data.get("username",""),password=data.get("password",""),email=data.get("email",""))
         u = Users()
         u.username = data.get("username","")
         u.password = data.get("password","")
         u.email = data.get("email","")
+        u.save()
         return HttpResponse("创建成功")
+        """
