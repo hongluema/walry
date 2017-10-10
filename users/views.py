@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate,login,logout
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-from django.views.generic import View
+from django.views.generic import View, TemplateView
 from users.models import Users
 from django.contrib.auth.models import User
 from users.forms import LoginForm,UserRegistrationForm
@@ -82,3 +82,6 @@ class UserView(View):
         u.save()
         return HttpResponse("创建成功")
         """
+
+class UserListView(TemplateView):
+    template_name = 'users/create.html'
