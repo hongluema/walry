@@ -7,4 +7,5 @@ app_name = "weixin"
 urlpatterns = [
     url(r'^findTask/',views.find_task,name="findTask"),
     url(r'^deleteTask/',views.delete_task,name="deleteTask"),
+    url(r'^recoverTask/',views.recover_task,name="recoverTask"),
 ]

@@ -30,7 +30,20 @@ def delete_task(request):
     conn = MySQLdb.connect(host="570ddef683032.sh.cdb.myqcloud.com", user='root', passwd='N205U89KSY8X', port=5394)
     cursor = conn.cursor(DictCursor)
     cursor.execute("use community")
-    sql = "delete from message where id=%s"
+    sql = "update from message set status = 2 where id=%s"
+    cursor.execute(sql, (id,))
+    task = cursor.fetchone()
+    conn.commit()
+    cursor.close()
+    conn.close()
+    return JsonResponse({"status":200,"task":task})
+
+def recover_task(request):
+    id = request.GET["id"]
+    conn = MySQLdb.connect(host="570ddef683032.sh.cdb.myqcloud.com", user='root', passwd='N205U89KSY8X', port=5394)
+    cursor = conn.cursor(DictCursor)
+    cursor.execute("use community")
+    sql = "update from message set status = 1 where id=%s"
     cursor.execute(sql, (id,))
     task = cursor.fetchone()
     conn.commit()
