@@ -3,6 +3,10 @@ from django.shortcuts import render
 import MySQLdb
 from MySQLdb.cursors import DictCursor
 from django.http import JsonResponse
+import traceback
+from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponse
+import json
 # Create your views here.
 
 
@@ -50,3 +54,20 @@ def recover_task(request):
     cursor.close()
     conn.close()
     return JsonResponse({"status":200,"task":task})
+
+#展示座位的页面
+@csrf_exempt
+def show_zuowei(request):
+    status = {'status': 300, "data": "", "msg": ""}
+    response = HttpResponse(content_type='application/json')
+    try:
+        car_number = request.POST.get("car_number","") #车牌号
+        status["status"] = 200
+        status["msg"] = "测试"
+    except BaseException, e:
+        traceback.print_exc()
+        print ">>>error", str(e)
+        status["msg"] = "服务器错误"
+    response.content = json.dumps(status)
+    response["Access-Control-Allow-Origin"] = "*"
+    return response
