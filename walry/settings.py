@@ -26,11 +26,7 @@ SECRET_KEY = 'puhf$+_m_=2whnba*=k1z)%a&z=h@&w+lb9+fiuc&apebf@=j%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-<<<<<<< HEAD
-ALLOWED_HOSTS = ["hust.walry.top","*"]
-=======
 ALLOWED_HOSTS = ["*"]
->>>>>>> d4e4aaf5bbec33eac120e0fef19daedf3d774763
 
 LOGIN_URL = '/users/login/' #这是自己设置的，用户验证登录跳转，如果没有登录就会跳转到这个路由
 
@@ -90,7 +86,7 @@ DATABASES = {
         'NAME': 'walry',
         'USER': 'root',
         'PASSWORD': '123456',
-        'HOST': 'localhost',
+        'HOST': '106.15.177.204',
         'PORT': '3306',
         'OPTIONS': {'charset': 'utf8'}
     },
