@@ -7,6 +7,7 @@ import traceback
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 import json
+from weixin.utils.common import wrap
 # Create your views here.
 
 
@@ -71,3 +72,8 @@ def show_zuowei(request):
     response.content = json.dumps(status)
     response["Access-Control-Allow-Origin"] = "*"
     return response
+
+#创建车辆每日运营记录
+@wrap
+def create_log(requst,response,content):
+    content["msg"] = "你好"
