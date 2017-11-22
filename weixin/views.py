@@ -74,7 +74,7 @@ def show_zuowei(request):
             sates = json.loads(cdi.sates_info)
             for i in sates:
                 if i == zuowei:
-                    sates[i] = "../../ images / 座位\ 已选.png"
+                    sates[i] = "../../images/sate_true.png"
             cdi.sates_info = json.dumps(sates)
             cdi.save()
         else:
@@ -85,7 +85,7 @@ def show_zuowei(request):
             sates = {}
             for i in range(1,63):
                 k = "zuowei"+str(i)
-                v = "../../images/座位.png"
+                v = "../../images/sate.png"
                 sates.update({k:v})
             cdi.sates_info = json.dumps(sates)
             cdi.save()
