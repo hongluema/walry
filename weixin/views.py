@@ -80,6 +80,7 @@ def show_zuowei(request):
             cdi = CarDayInfo()
             cdi.virtual_time = datetime.strptime("2017-11-23 00:00:00","%Y-%m-%d %H:%M:%S")
             cdi.real_time = datetime.now()
+            cdi.save()
             sates = {}
             for i in range(1,63):
                 k = "zuowei"+str(i)
