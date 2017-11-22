@@ -60,14 +60,19 @@ def recover_task(request):
 #展示座位的页面
 @csrf_exempt
 def show_zuowei(request):
+    print ">>>request.POST",request.POST
     status = {'status': 300, "data": "", "msg": ""}
     response = HttpResponse(content_type='application/json')
     try:
         car_number = request.POST.get("car_number","") #车牌号
+        zuowei = request.POST.get("zuowei","") #车牌号
         sates = {}
         for i in range(1,63):
             k = "zuowei"+str(i)
-            v = "../../images/座位.png"
+            if k == zuowei:
+                v = "../../ images / 座位\ 已选.png"
+            else:
+                v = "../../images/座位.png"
             sates.update({k:v})
         status["status"] = 200
         status["msg"] = "测试"
