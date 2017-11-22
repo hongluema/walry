@@ -32,6 +32,7 @@ def find_task(request):
 
 def delete_task(request):
     id = request.GET["id"]
+    print "id:",id
     conn = MySQLdb.connect(host="570ddef683032.sh.cdb.myqcloud.com", user='root', passwd='N205U89KSY8X', port=5394)
     cursor = conn.cursor(DictCursor)
     cursor.execute("use community")
@@ -76,4 +77,5 @@ def show_zuowei(request):
 #创建车辆每日运营记录
 @wrap
 def create_log(requst,response,content):
+
     content["msg"] = "你好"
