@@ -64,11 +64,11 @@ def show_zuowei(request):
     response = HttpResponse(content_type='application/json')
     try:
         car_number = request.POST.get("car_number","") #车牌号
-        sates = []
+        sates = {}
         for i in range(1,63):
             k = "zuowei"+str(i)
             v = "../../images/座位.png"
-            sates.append({k:v})
+            sates.update({k:v})
         status["status"] = 200
         status["msg"] = "测试"
         status["data"] = sates
