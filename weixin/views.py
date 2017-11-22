@@ -8,6 +8,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 import json
 from weixin.utils.common import wrap
+from weixin.models import CarDayInfo
+from datetime import datetime
 # Create your views here.
 
 
@@ -66,14 +68,23 @@ def show_zuowei(request):
     try:
         car_number = request.POST.get("car_number","") #车牌号
         zuowei = request.POST.get("zuowei","") #车牌号
-        sates = {}
-        for i in range(1,63):
-            k = "zuowei"+str(i)
-            if k == zuowei:
-                v = "../../ images / 座位\ 已选.png"
-            else:
+        cdis = CarDayInfo.objects.filter(car=car_number)
+        if cdis:
+            cdi = cdis[0]
+            sates = json.loads(cdi.sates_info)
+            for i in sates:
+                if i == zuowei:
+                    sates[i] = "../../ images / 座位\ 已选.png"
+            cdi.save()
+        else:
+            cdi = CarDayInfo()
+            cdi.virtual_time = datetime.strptime("2017-11-23 00:00:00","%Y-%m-%d %H:%M:%S")
+            cdi.real_time = datetime.now()
+            sates = {}
+            for i in range(1,63):
+                k = "zuowei"+str(i)
                 v = "../../images/座位.png"
-            sates.update({k:v})
+                sates.update({k:v})
         status["status"] = 200
         status["msg"] = "测试"
         status["data"] = sates
