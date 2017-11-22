@@ -66,7 +66,7 @@ def show_zuowei(request):
     status = {'status': 300, "data": "", "msg": ""}
     response = HttpResponse(content_type='application/json')
     try:
-        car_number = request.POST.get("car_number","") #车牌号
+        car_number = request.POST.get("carNumber","") #车牌号
         zuowei = request.POST.get("zuowei","") #车牌号
         cdis = CarDayInfo.objects.filter(car=car_number)
         if cdis:
