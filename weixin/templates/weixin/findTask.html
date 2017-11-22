@@ -30,7 +30,10 @@
                 <td>{{ t.pub_time|date:"Y-m-j G:i:s" }}</td>
                 <td>{{ t.r_amount }}</td>
                 <td>{{ t.t_amount }}</td>
-                <td><button id="delete" name="id" value="{{ t.id }}">删除</button></td>
+                <td>
+                    <button id="delete" name="id" value="{{ t.id }}">删除</button>
+                    <button id="recover" name="id" value="{{ t.id }}">恢复</button>
+                </td>
             </tr>
             {% endfor %}
         </tbody>
@@ -38,7 +41,7 @@
     <script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
     <script>
         $(document).ready(function () {
-{#            console.log(123);#}
+            console.log(123);
 {#            console.log($('#delete'));#}
 {#            console.log($('#delete').val());#}
             $('#delete').on('click',function () {
