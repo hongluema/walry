@@ -80,12 +80,13 @@ def show_zuowei(request):
             cdi = CarDayInfo()
             cdi.virtual_time = datetime.strptime("2017-11-23 00:00:00","%Y-%m-%d %H:%M:%S")
             cdi.real_time = datetime.now()
-            cdi.save()
             sates = {}
             for i in range(1,63):
                 k = "zuowei"+str(i)
                 v = "../../images/座位.png"
                 sates.update({k:v})
+            cdi.sates_info = sates
+            cdi.save()
         status["status"] = 200
         status["msg"] = "测试"
         status["data"] = sates
