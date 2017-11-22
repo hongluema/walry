@@ -75,6 +75,7 @@ def show_zuowei(request):
             for i in sates:
                 if i == zuowei:
                     sates[i] = "../../ images / 座位\ 已选.png"
+            cdi.sates_info = json.dumps(sates)
             cdi.save()
         else:
             cdi = CarDayInfo()
@@ -85,14 +86,13 @@ def show_zuowei(request):
                 k = "zuowei"+str(i)
                 v = "../../images/座位.png"
                 sates.update({k:v})
-            cdi.sates_info = sates
+            cdi.sates_info = json.dumps(sates)
             cdi.save()
         status["status"] = 200
         status["msg"] = "测试"
         status["data"] = sates
     except BaseException, e:
         traceback.print_exc()
-        print ">>>error", str(e)
         status["msg"] = "服务器错误"
     response.content = json.dumps(status)
     response["Access-Control-Allow-Origin"] = "*"
