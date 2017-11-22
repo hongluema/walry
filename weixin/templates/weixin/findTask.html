@@ -45,6 +45,7 @@
 {#            console.log($('#delete'));#}
 {#            console.log($('#delete').val());#}
             $('#delete').on('click',function () {
+                console.log("start");
                 var val = $('#delete').val();
                 console.log("val "+val);
                 $.get("/weixin/deleteTask/?id="+val,
