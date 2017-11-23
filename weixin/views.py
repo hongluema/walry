@@ -125,7 +125,7 @@ def get_code(request,response,content):
         print "type, res:",type(json.loads(res))
         res = json.loads(res)
         content["status"] = 200
-        content["openid"] = res.openid
+        content["openid"] = res["openid"]
     else:
         content["status"] = 401
         content["msg"] = "未获取到code"
