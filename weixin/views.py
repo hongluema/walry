@@ -15,8 +15,8 @@ import logging
 # Create your views here.
 
 logger = logging.getLogger("file:{},author:mahl".format(__name__))
-logging.basicConfig(level=logging.DEBUG,format="%(asctime)s %(name)s %(module)s %(funcName)s %(pathname)s %(lineno)d %(levelname)s: %(message)s", \
-                    filename="/home/mhl/projects/django/walry/walry.log")
+logging.basicConfig(level=logging.DEBUG,format="%(asctime)s %(name)s %(module)s %(funcName)s %(pathname)s %(lineno)d %(levelname)s: %(message)s")
+                    # filename="/home/mhl/projects/django/walry/walry.log")
 
 def find_task(request):
     if request.method == "POST":
