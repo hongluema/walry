@@ -8,7 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 import json
 from weixin.utils.common import wrap, code_token_
-from weixin.models import CarDayInfo
+from weixin.models import CarDayInfo, WxInfo
 from datetime import datetime
 import requests
 # Create your views here.
@@ -112,7 +112,7 @@ def create_log(requst,response,content):
 def find_location(request,response,content):
     pass
 
-#获取微信code
+#通过微信code来获取openid
 @wrap
 def get_code(request,response,content):
     code = request.POST.get("code","")
@@ -126,3 +126,32 @@ def get_code(request,response,content):
     else:
         content["status"] = 401
         content["msg"] = "未获取到code"
+
+#获取微信用户信息
+@wrap
+def get_wx_info(request,response,content):
+    userInfo = request.POST.get("userInfo","")
+    openid = request.POST.get("openid","")
+    userInfo = json.loads(userInfo)
+    wx_info = WxInfo.objects.filter(openid=openid).first()
+    """
+    ﻿注意 first() 是一个方便的方法，下面的代码示例等同于上面的例子:
+    try:
+        wx_info = WxInfo.objects.filter(openid=openid)[0]
+    except IndexError:
+        wx_info = None
+    """
+    if not wx_info:
+        wx_info = WxInfo()
+    wx_info.openid = openid
+    wx_info.nickname = userInfo['nickName']
+    wx_info.headimgurl = userInfo['avatarUrl'].replace('\/', '/')
+    wx_info.province = userInfo["province"]
+    wx_info.language = userInfo["language"]
+    wx_info.city = userInfo["city"]
+    wx_info.country = userInfo["country"]
+    wx_info.sex = userInfo["gender"]
+    wx_info.create_time = datetime.now()
+    wx_info.save()
+    content["status"] = 200
+    content["msg"] = "微信用户信息存入或更新成功"
