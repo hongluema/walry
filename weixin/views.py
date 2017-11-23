@@ -136,8 +136,8 @@ def get_code(request,response,content):
 def get_wx_info(request,response,content):
     userInfo = request.POST.get("userInfo","")
     openid = request.POST.get("openid","")
-    logger.debug("userInfo:{}".format(userInfo))
-    logger.debug("type:userInfo:{}".format(type(userInfo)))
+    print "userInfo:{}".format(userInfo)
+    print "type:userInfo:{}".format(type(userInfo))
     userInfo = json.loads(userInfo)
     wx_info = WxInfo.objects.filter(openid=openid).first()
     """
