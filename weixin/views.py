@@ -7,7 +7,7 @@ import traceback
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 import json
-from weixin.utils.common import wrap
+from weixin.utils.common import wrap, code_token_
 from weixin.models import CarDayInfo
 from datetime import datetime
 import requests
@@ -117,12 +117,11 @@ def find_location(request,response,content):
 def get_code(request,response,content):
     code = request.POST.get("code","")
     if code:
+        temp = code_token_(code)
+        print ">>>>>>temp: ",temp
         url = 'https://api.weixin.qq.com/sns/jscode2session?appid=wx39fac537e9c5bad9&secret=5ea1112304709f9eb056702cbabb9ab3&js_code={code}&grant_type=authorization_codetest.com/onLogin'.format(code=code)
         r = requests.post(url)
-        print "r.text:",r.text
         res = r.text.encode('unicode-escape').decode('string_escape')
-        print "type: r.text:",type(res)
-        print "type, res:",type(json.loads(res))
         res = json.loads(res)
         content["status"] = 200
         content["openid"] = res["openid"]
