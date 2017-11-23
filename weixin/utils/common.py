@@ -14,7 +14,7 @@ def wrap(func):
             func(request,response,content)
             response.content = json.dumps(content)
         except BaseException,e:
-            content["status"] = 300
+            content["status"] = 500
             content["msg"] = "服务器错误"
             response.content = json.dumps(content)
             traceback.print_exc()

@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^recoverTask/',views.recover_task,name="recoverTask"),
     url(r'^showuowei/',views.show_zuowei,name="show_zuowei"),#展示座位
     url(r'^createLog/',views.create_log,name="create_log"),#创建车辆运营记录
+    url(r'^getCode/',views.get_code,name="get_code"),#获取登录的code，用来向微信换取openid
 ]

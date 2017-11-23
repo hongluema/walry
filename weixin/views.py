@@ -10,6 +10,7 @@ import json
 from weixin.utils.common import wrap
 from weixin.models import CarDayInfo
 from datetime import datetime
+import requests
 # Create your views here.
 
 
@@ -104,3 +105,24 @@ def show_zuowei(request):
 def create_log(requst,response,content):
 
     content["msg"] = "你好"
+
+
+#根据地理位置进行智能搜索
+@wrap
+def find_location(request,response,content):
+    pass
+
+#获取微信code
+@wrap
+def get_code(request,response,content):
+    code = request.POST.get("code","")
+    if code:
+        url = 'https://api.weixin.qq.com/sns/jscode2session?appid=wx39fac537e9c5bad9&secret=5ea1112304709f9eb056702cbabb9ab3&js_code={code}&grant_type=authorization_codetest.com/onLogin'.format(code=code)
+        r = requests.post(url)
+        print "r.text:",r.text
+        res = json.loads(r.text)
+        content["status"] = 200
+        content["openid"] = res.openid
+    else:
+        content["status"] = 401
+        content["msg"] = "未获取到code"
