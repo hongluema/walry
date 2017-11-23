@@ -11,8 +11,12 @@ from weixin.utils.common import wrap, code_token_
 from weixin.models import CarDayInfo, WxInfo
 from datetime import datetime
 import requests
+import logging
 # Create your views here.
 
+logger = logging.getLogger("file:{},author:mahl".format(__name__))
+logging.basicConfig(level=logging.DEBUG,format="%(asctime)s %(name)s %(module)s %(funcName)s %(pathname)s %(lineno)d %(levelname)s: %(message)s", \
+                    filename="/home/mhl/projects/django/walry/walry.log")
 
 def find_task(request):
     if request.method == "POST":
@@ -132,6 +136,8 @@ def get_code(request,response,content):
 def get_wx_info(request,response,content):
     userInfo = request.POST.get("userInfo","")
     openid = request.POST.get("openid","")
+    logger.debug("userInfo:{}".format(userInfo))
+    logger.debug("type:userInfo:{}".format(type(userInfo)))
     userInfo = json.loads(userInfo)
     wx_info = WxInfo.objects.filter(openid=openid).first()
     """
