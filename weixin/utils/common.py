@@ -34,6 +34,7 @@ def code_token_(code):
         # address = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=" + appId + \
         #           "&secret=" + appSecrect
         temp = eval(urllib2.urlopen(url=address).read())
+        print "1.temp",temp
         access_token = temp['access_token']
         open_id = temp['openid']
         info_address = 'https://api.weixin.qq.com/sns/userinfo?access_token=' + access_token + '&openid=' + open_id + '&lang=zh_CN'

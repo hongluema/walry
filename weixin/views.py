@@ -119,12 +119,15 @@ def get_code(request,response,content):
     if code:
         temp = code_token_(code)
         print ">>>>>>temp: ",temp
+        """
         url = 'https://api.weixin.qq.com/sns/jscode2session?appid=wx39fac537e9c5bad9&secret=5ea1112304709f9eb056702cbabb9ab3&js_code={code}&grant_type=authorization_codetest.com/onLogin'.format(code=code)
         r = requests.post(url)
         res = r.text.encode('unicode-escape').decode('string_escape')
         res = json.loads(res)
         content["status"] = 200
         content["openid"] = res["openid"]
+        """
+        content["status"] = 200
     else:
         content["status"] = 401
         content["msg"] = "未获取到code"
