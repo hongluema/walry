@@ -134,10 +134,11 @@ def get_code(request,response,content):
 #获取微信用户信息
 @wrap
 def get_wx_info(request,response,content):
+    print ">>>request.POST",request.POST
     userInfo = request.POST.get("userInfo","")
     openid = request.POST.get("openid","")
-    print "userInfo:{}".format(userInfo)
-    print "type:userInfo:{}".format(type(userInfo))
+    print "userInfo:{}".format(userInfo.encode('unicode-escape').decode('string_escape'))
+    print "type:userInfo:{}".format(type(userInfo.encode('unicode-escape').decode('string_escape')))
     userInfo = json.loads(userInfo)
     wx_info = WxInfo.objects.filter(openid=openid).first()
     """
