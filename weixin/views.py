@@ -121,6 +121,7 @@ def get_code(request,response,content):
         r = requests.post(url)
         print "r.text:",r.text
         print "type: r.text:",type(r.text)
+        print "openid:",r.text["openid"]
         # res = json.loads(r.text)
         content["status"] = 200
         # content["openid"] = res.openid
