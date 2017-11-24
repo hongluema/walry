@@ -68,8 +68,8 @@ def createGroup_fail(request):
 #后台添加菜品
 class AddFoodView(View):
     def get(self,request):
-        # group_list = [g for g in Groups.objects.filter(status__exact=1)]
-        return render(request,'food/upload_food.html',{"group_list":[]})
+        group_list = [g for g in Group.objects.filter(is_delete=0)]
+        return render(request,'food/upload_food.html',{"group_list":group_list})
 
 
     def post(self,request):
@@ -81,7 +81,7 @@ class AddFoodView(View):
             food_desc = request.POST["food_desc"]  # 活动配图
             group_id = request.POST["group_id"]  # 分组id
             food_id = rand_str(8)
-
+            
             return JsonResponse({"status": 200, "data": request.POST})
         except BaseException, e:
             return JsonResponse({"error":str(e),"status":400})
