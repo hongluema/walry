@@ -43,30 +43,20 @@ class AddFoodView(View):
     def post(self,request):
         try:
             print ">>>request.POST",request.POST
-            # active_url = request.POST["active_url"]  # 活动
-            # main_title = request.POST["main_title"]  # 主标题
-            # active_sequence = request.POST["active_sequence"]  # 活动组内顺序
-            # secound_title = request.POST["secound_title"]  # 副标题
+            food_img = request.POST["food_img"]  # 菜图片
+            food_price = request.POST["food_price"]  # 菜价格
+            food_name = request.POST["food_name"]  # 菜名字
             # active_img = request.POST["active_img"]  # 活动配图
-            # group_id = request.POST["group_id"]  # 分组id
-            # active = Actives()
-            # group = Groups.objects.get(group_id=group_id)
-            # active.active_id = rand_str(10)
-            # active.group = group
-            # active.active_url = active_url
-            # active.active_img = active_img
-            # # active.active_sequence = active_sequence
-            # active.create_time = datetime.datetime.now()
-            # active.main_title = main_title
-            # active.secound_title = secound_title
-            # active.group_name = group.name
-            # active.group_sequence = group.sequence
-            # active.save()
+            group_id = request.POST["group_id"]  # 分组id
             return JsonResponse({"status": 200, "data": request.POST})
         except BaseException, e:
             return JsonResponse({"error":str(e),"status":400})
 
+def createFood_success(request):
+    return HttpResponse('恭喜您！创建活动成功！<a href="https://zch.kuosanyun.com/activity/activeList/" class="btn btn-danger" role="button">回到首页</a>')
 
+def createFood_fail(request):
+    return HttpResponse('抱歉！创建活动失败！<a href="https://zch.kuosanyun.com/activity/activeList/" class="btn btn-danger" role="button">回到首页</a>')
 
 #所有菜
 #返回菜的名字，图片，月售多少份，好评率是多少
