@@ -8,6 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 import datetime
 from food.utils.common import rand_str,timestamp,create_token,change_money
+from food.models import Food, Group
 from django.views.generic import View, TemplateView
 import logging
 # Create your views here.
@@ -32,6 +33,30 @@ def qiniu_token(request):
     response.content_type = 'application/json'
     return response
 
+#后台添加菜系
+class AddGroupView(View):
+    def get(self,request):
+        return render(request,'food/addGroup.html')
+
+
+    def post(self,request):
+        try:
+            print ">>>request.POST",request.POST
+            name = request.POST["group_name"]
+            desc = request.POST["group_desc"]
+            sequence = request.POST["group_sequence"]
+            # group = Group()
+            # group.group_id = rand_str(6)
+            # group.name = name
+            # group.desc = desc
+            # group.sequence = sequence
+            # group.create_time = datetime.datetime.now()
+            # group.save()
+            return JsonResponse({"status": 200, "data": request.POST})
+        except BaseException, e:
+            return JsonResponse({"error":str(e),"status":400})
+
+
 
 #后台添加菜品
 class AddFoodView(View):
@@ -46,8 +71,10 @@ class AddFoodView(View):
             food_img = request.POST["food_img"]  # 菜图片
             food_price = request.POST["food_price"]  # 菜价格
             food_name = request.POST["food_name"]  # 菜名字
-            # active_img = request.POST["active_img"]  # 活动配图
+            food_desc = request.POST["food_desc"]  # 活动配图
             group_id = request.POST["group_id"]  # 分组id
+            food_id = rand_str(8)
+
             return JsonResponse({"status": 200, "data": request.POST})
         except BaseException, e:
             return JsonResponse({"error":str(e),"status":400})
