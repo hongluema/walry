@@ -42,12 +42,13 @@ class AddFoodView(View):
 
     def post(self,request):
         try:
-            active_url = request.POST["active_url"]  # 活动
-            main_title = request.POST["main_title"]  # 主标题
+            print ">>>request.POST",request.POST
+            # active_url = request.POST["active_url"]  # 活动
+            # main_title = request.POST["main_title"]  # 主标题
             # active_sequence = request.POST["active_sequence"]  # 活动组内顺序
-            secound_title = request.POST["secound_title"]  # 副标题
-            active_img = request.POST["active_img"]  # 活动配图
-            group_id = request.POST["group_id"]  # 分组id
+            # secound_title = request.POST["secound_title"]  # 副标题
+            # active_img = request.POST["active_img"]  # 活动配图
+            # group_id = request.POST["group_id"]  # 分组id
             # active = Actives()
             # group = Groups.objects.get(group_id=group_id)
             # active.active_id = rand_str(10)
