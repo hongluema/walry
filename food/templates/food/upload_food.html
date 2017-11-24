@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加饭菜信息</title>
+    ﻿<link type="text/css" href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+{#    <script type="text/javascript" src="https://static-10014880.file.myqcloud.com/mp_v1.1/static/js/plupload.full.min.js"></script>#}
+    <script type="text/javascript" src="/static/js/plupload.full.min.js"></script>
+{#    <script type="text/javascript" src="https://static-10014880.file.myqcloud.com/mp_v1.1/static/js/qiniu.js"></script>#}
+    <script type="text/javascript" src="/static/js/qiniu.js"></script>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="col-md-10 col-md-offset-2 nav-slider">
+            <div class="page-header">
+                <h1>创建饭菜信息  <small>脉店</small></h1>
+            </div>
+            <form class="form-message form-horizontal" novalidate="novalidate">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="active_url" class="col-sm-2 control-label">活动链接</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" name="active_url" id="active_url" placeholder="活动">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="active_img" class="col-sm-2 control-label">饭菜图片</label>
+                    <div class="col-sm-10">
+                        <div style="display: inline-block;">
+                            <button id="upload-img" type="button" class="btn btn-warning">上传</button>
+                            <button id="new_list" type="button" class="btn btn-warning">新建</button>
+                            <div id="container" style="display: none"><input id="pickfiles" type="file"></div>
+                            <input id="bg" name="active_img" type="text" placeholder="背景图地址">
+                        </div>
+{#                      <input type="file" class="form-control" name="active_img" id="active_img" placeholder="活动图片">#}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="main_title" class="col-sm-2 control-label">饭菜名字</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" name="main_title" id="main_title" placeholder="饭菜名字">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="secound_title" class="col-sm-2 control-label">活动副标题</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" name="secound_title" id="secound_title" placeholder="活动副标题">
+                    </div>
+                </div>
+{#                活动:<input type="text" id="active_url" name="active_url">#}
+{#                活动图片:<input type="text" id="active_img" name="active_img">#}
+{#                活动主标题:<input type="text" id="main_title" name="main_title">#}
+{#                活动副标题:<input type="text" id="secound_title" name="secound_title">#}
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">饭菜所属类别</label>
+                    <div class="col-sm-6">
+                        <select id="selectID" class="form-control">
+                            {% for g in group_list %}
+                                <option name="group_id" value="{{ g.group_id }}">{{ g.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </form>
+                <div class="form-group">
+                    <div class="col-sm-4 col-md-offset-4">
+                        <button class="btn btn-default" id="save" type="button">创建</button>
+                    </div>
+{#                        <label for="selectID" class="col-sm-2 control-label">活动所属类别</label>#}
+{#                    <button type="button" id="save">创建</button>#}
+                </div>
+
+        </div>
+    </div>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#save').on('click',function () {
+                var options = $("#selectID").val();
+                console.log(options);
+                var arguments = $(".form-message").serializeArray();//表格的数据
+{#                var arguments = {"active_url":$("#active_url").val(),"active_img":$("#active_img").val(),"main_title":$("#main_title").val(),"secound_title":$("#secound_title").val(),"group_id":options.val()};#}
+{#                var args = JSON.stringify(arguments);#}
+                arguments.push({"name":"group_id","value":options})
+                console.log(arguments);
+                $.post("/activity/createActive/",arguments,
+                    function (data) {
+                        if(data["status"] == 200){
+                            location.replace("/activity/createActive_success/");
+{#                            alert("恭喜您！创建活动成功！");#}
+                        }
+                        else{
+                            location.replace("/activity/createActive_fail/");
+{#                            alert("抱歉！创建活动失败！");#}
+                        }
+                    }
+                    ,"json");
+            })
+{#            七牛上传#}
+        function change_url(url) {
+            $('#bg').val(url);
+        }
+
+    var upload = function () {
+        var img_url = '';
+        $.ajax({
+            url: '/activity/qiniu_token/',
+            type: 'post',
+            dataType: 'json',
+            success: function (_data) {
+                var uploader = Qiniu.uploader({
+                    runtimes: 'html5,flash,html4',      // 上传模式,依次退化
+                    browse_button: 'pickfiles',         // 上传选择的点选按钮，**必需**
+                    uptoken: _data.info, // uptoken 是上传凭证，由其他程序生成
+                    get_new_uptoken: false,             // 设置上传文件的时候是否每次都重新获取新的 uptoken
+                    unique_names: true,              // 默认 false，key 为文件名。若开启该选项，JS-SDK 会为每个文件自动生成key（文件名）
+                    domain: 'http://o7oe4601l.bkt.clouddn.com',     // bucket 域名，下载资源时用到，**必需**
+                    container: 'container',             // 上传区域 DOM ID，默认是 browser_button 的父元素，
+                    max_file_size: '100mb',             // 最大文件体积限制
+                    flash_swf_url: 'http://static-10014880.file.myqcloud.com/mp_v1.1/static/js/Moxie.swf',  //引入 flash,相对路径
+                    max_retries: 3,                     // 上传失败最大重试次数
+                    dragdrop: true,                     // 开启可拖曳上传
+                    drop_element: 'container',          // 拖曳上传区域元素的 ID，拖曳文件或文件夹后可触发上传
+                    chunk_size: '4mb',                  // 分块上传时，每块的体积
+                    auto_start: true,                   // 选择文件后自动上传，若关闭需要自己绑定事件触发上传,
+                    init: {
+                        'FilesAdded': function (up, files) {
+                            plupload.each(files, function (file) {
+                                // 文件添加进队列后,处理相关的事情
+                            });
+                        },
+                        'BeforeUpload': function (up, file) {
+                            $(".toast").show();
+                            // 每个文件上传前,处理相关的事情
+                        },
+                        'UploadProgress': function (up, file) {
+                            // 每个文件上传时,处理相关的事情
+                        },
+                        'FileUploaded': function (up, file, info) {
+                            // 每个文件上传成功后,处理相关的事情
+                            var domain = 'https://video.m.kuosanyun.com/';
+                            var res = jQuery.parseJSON(info);
+                            var sourceLink = domain + res.key; //获取上传成功后的文件的Url
+                            if (file.type.indexOf('image') != -1) {
+                                img_url = sourceLink;
+                                change_url(img_url);
+                            }
+                        },
+                        'Error': function (up, err, errTip) {
+                            //上传出错时,处理相关的事情
+                        },
+                        'UploadComplete': function () {
+
+                        },
+                        'Key': function (up, file) {
+                            var key = _data.key;
+                            return key
+                        }
+                    }
+                });
+            }
+        });
+    };
+
+        var readyForUpload = function () {
+            upload();
+        $('#upload-img').click(function () {
+            $('#pickfiles').click();
+        });
+    };
+
+    var __main =function () {
+             readyForUpload()
+    }
+    __main()
+
+
+        })
+    </script>
+</body>
+</html>
