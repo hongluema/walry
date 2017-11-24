@@ -6,7 +6,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
-import datetime
+from datetime import datetime
 from food.utils.common import rand_str,timestamp,create_token,change_money
 from food.models import Food, Group
 from django.views.generic import View, TemplateView
@@ -50,7 +50,7 @@ class AddGroupView(View):
             group.name = name
             group.desc = desc
             group.sequence = sequence
-            group.create_time = datetime.datetime.now()
+            group.create_time = datetime.now()
             group.save()
             return JsonResponse({"status": 200, "data": request.POST})
         except BaseException, e:
@@ -81,7 +81,15 @@ class AddFoodView(View):
             food_desc = request.POST["food_desc"]  # 活动配图
             group_id = request.POST["group_id"]  # 分组id
             food_id = rand_str(8)
-            
+            food = Food()
+            food.food_id = food_id
+            food.name = food_name
+            food.group_id = group_id
+            food.food_img = food_img
+            food.desc = food_desc
+            food.price = food_price
+            food.create_time = datetime.now()
+            food.save()
             return JsonResponse({"status": 200, "data": request.POST})
         except BaseException, e:
             return JsonResponse({"error":str(e),"status":400})
