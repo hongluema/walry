@@ -4,12 +4,33 @@ from weixin.utils.common import wrap
 
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 import json
 import datetime
 from food.utils.common import rand_str,timestamp,create_token,change_money
 from django.views.generic import View, TemplateView
 import logging
 # Create your views here.
+
+#七牛上传图片
+@csrf_exempt
+def qiniu_token(request):
+    status = {'status': 300, 'msg': '系统错误'}
+    response = HttpResponse()
+    try:
+        # key = datetime.datetime.now().strftime('%Y%m%d%H%M%S%f')
+        key = None
+        policy = request.POST.get('policy', None)
+        # if key:
+        token = create_token('ksy-video', key, policy)
+        status['status'] = 200
+        status['info'] = token
+        status['key'] = key
+    except Exception, e:
+        print str(e)
+    response.content = json.dumps(status)
+    response.content_type = 'application/json'
+    return response
 
 
 #后台添加菜品
@@ -43,6 +64,7 @@ class AddFoodView(View):
             return JsonResponse({"status": 200, "data": request.POST})
         except BaseException, e:
             return JsonResponse({"error":str(e),"status":400})
+
 
 
 #所有菜
