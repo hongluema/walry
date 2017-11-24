@@ -51,10 +51,10 @@
                 $.post("/food/addGroup/",arguments,
                     function (data) {
                         if(data["status"] == 200){
-                            location.replace("/food/createGroup_success/");
+                            location.replace("/food/createGroupSuccess/");
                         }
                         else{
-                            location.replace("/food/createGroup_fail/");
+                            location.replace("/food/createGroupFail/");
                         }
                     }
                     ,"json");

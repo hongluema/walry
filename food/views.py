@@ -45,17 +45,24 @@ class AddGroupView(View):
             name = request.POST["group_name"]
             desc = request.POST["group_desc"]
             sequence = request.POST["group_sequence"]
-            # group = Group()
-            # group.group_id = rand_str(6)
-            # group.name = name
-            # group.desc = desc
-            # group.sequence = sequence
-            # group.create_time = datetime.datetime.now()
-            # group.save()
+            group = Group()
+            group.group_id = rand_str(6)
+            group.name = name
+            group.desc = desc
+            group.sequence = sequence
+            group.create_time = datetime.datetime.now()
+            group.save()
             return JsonResponse({"status": 200, "data": request.POST})
         except BaseException, e:
             return JsonResponse({"error":str(e),"status":400})
 
+def createGroup_success(request):
+    return HttpResponse(
+        '恭喜您！创建菜系成功！<a href="https://zch.kuosanyun.com/activity/activeList/" class="btn btn-danger" role="button">回到首页</a>')
+
+def createGroup_fail(request):
+    return HttpResponse(
+        '抱歉！创建菜系失败！<a href="https://zch.kuosanyun.com/activity/activeList/" class="btn btn-danger" role="button">回到首页</a>')
 
 
 #后台添加菜品
