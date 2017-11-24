@@ -22,4 +22,5 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^weixin/',include("weixin.urls")),
     url(r'^users/',include("users.urls")),
+    url(r'^food/',include("food.urls")),
 ]
