@@ -21,7 +21,7 @@ class Store(models.Model):
 
 class Group(models.Model):
     group_id = models.CharField(max_length=64,verbose_name="菜系id",primary_key=True)
-    store_id = models.CharField(max_length=64,verbose_name="店铺id",null=False)
+    store_id = models.CharField(max_length=64,verbose_name="店铺id",default="")
     name = models.CharField(max_length=255, verbose_name="菜系的名字", default="")
     desc = models.TextField(verbose_name="描述", null=True,blank=True)
     create_time = models.DateTimeField(verbose_name="添加时间", auto_now_add=True)
@@ -35,7 +35,7 @@ class Group(models.Model):
 class Food(models.Model):
     food_id = models.CharField(max_length=64,verbose_name="菜的id",primary_key=True)
     group_id = models.CharField(max_length=64,verbose_name="菜系id",null=False,blank=False)
-    store_id = models.CharField(max_length=64, verbose_name="店铺id", null=False)
+    store_id = models.CharField(max_length=64, verbose_name="店铺id", default="")
     food_img = models.CharField(max_length=255,verbose_name="菜图片",default="")
     name = models.CharField(max_length=255,verbose_name="菜的名字",default="")
     desc = models.TextField(verbose_name="描述",null=True,blank=True)
@@ -52,7 +52,7 @@ class FoodEvalute(models.Model):
     evalute = models.CharField(max_length=64,verbose_name="评价id",null=False,blank=False)
     food_id = models.CharField(max_length=64, verbose_name="菜的id", null=False,blank=False)
     group_id = models.CharField(max_length=64, verbose_name="菜系id", null=False, blank=False)
-    store_id = models.CharField(max_length=64, verbose_name="店铺id", null=False)
+    store_id = models.CharField(max_length=64, verbose_name="店铺id", default="")
     food_img = models.CharField(max_length=255, verbose_name="菜图片", default="")
     name = models.CharField(max_length=255, verbose_name="菜的名字", default="")
     content = models.TextField(verbose_name="评价内容", null=True, blank=True)
@@ -66,7 +66,7 @@ class FoodEvalute(models.Model):
 
 class Order(models.Model):
     order_id = models.CharField(max_length=88,verbose_name="订单id",unique=True)
-    store_id = models.CharField(max_length=64, verbose_name="店铺id", null=False)
+    store_id = models.CharField(max_length=64, verbose_name="店铺id", default="")
     table = models.IntegerField(verbose_name="桌号",default=1)
     foods = models.TextField(verbose_name="已经点的菜列表",default="[]")
     customers = models.TextField(verbose_name="顾客列表",default="[]")
