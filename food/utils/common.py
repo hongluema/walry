@@ -28,3 +28,4 @@ def create_token(bucket_name, key, policy=None):
     q = Auth(access_key, secret_key)
     token = q.upload_token(bucket_name, key, 3600, policy)
     return token
+

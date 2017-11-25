@@ -6,9 +6,9 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
-from datetime import datetime
+from datetime import datetime, timedelta
 from food.utils.common import rand_str,timestamp,create_token,change_money
-from food.models import Food, Group
+from food.models import Food, Group, Store, Order, FoodEvalute
 from django.views.generic import View, TemplateView
 import logging
 # Create your views here.
@@ -105,3 +105,18 @@ def createFood_fail(request):
 @wrap
 def all_food(request, response, content):
     pass
+
+#大家共同点菜系统
+@wrap
+def to_order(request,response,content):
+    store_id = request.POST["store_id"]  #店铺id
+    table = int(request.POST["table"])  #桌号，int类型
+    opneid = request.POST["openid"]
+    three_hours = datetime.now() - timedelta(hours=3) #三个小时之前
+    not_end = Order.objects.filter(table=table,customs_contains = opneid,create_time__gte=three_hours).order_by("-create_time").first() #判断是不是同一桌，
+    #如果三个小时内找到了该openid在该桌上消费过，就自动默认为是这顿饭还没吃完
+    if not_end: #还没吃完呢
+        foods = json.dumps(not_end.foods) #已经点过的菜单
+    else: #已经吃完了
+        pass
+
