@@ -97,13 +97,13 @@
     <script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-            $("#other_money").keydown(function(){
+            $("#other_money").focusout(function(){
                 var money1 = $("#real_money").val();
                 var money2 = $("#other_money").val();
                 var money = parseInt(money1) + parseInt(money2);
               $("#sum_money").val(money);
             });
-            $("#peoples").keydown(function(){
+            $("#peoples").focusout(function(){
                 var peoples = $("#peoples").val();
                 console.log("peoples:",peoples);
                 var money = parseInt(peoples)*parseInt(40);
