@@ -97,16 +97,16 @@
     <script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-            $("#other_money").change(function(){
+            $("#other_money").keydown(function(){
                 var money1 = $("#real_money").val();
                 var money2 = $("#other_money").val();
-                var money = money1 + money2;
+                var money = parseInt(money1) + parseInt(money2);
               $("#sum_money").val(money);
             });
-            $("#peoples").change(function(){
+            $("#peoples").keydown(function(){
                 var peoples = $("#peoples").val();
                 var money = peoples*40;
-              $("#normal").html("<span>按每人都是四十的票价，总收入应该是：money+元</span>");
+              $("#normal").html("<span>按每人都是四十的票价，总收入应该是："+money+"元</span>");
             });
             $('#save').on('click', function () {
                 var options = $("#selectBusNumber").val();
