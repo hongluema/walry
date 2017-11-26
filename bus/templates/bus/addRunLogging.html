@@ -1,154 +1,187 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>添加饭菜信息</title>
-    ﻿<link type="text/css" href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-{#    <script type="text/javascript" src="https://static-10014880.file.myqcloud.com/mp_v1.1/static/js/plupload.full.min.js"></script>#}
-    <script type="text/javascript" src="/static/js/plupload.full.min.js"></script>
-{#    <script type="text/javascript" src="https://static-10014880.file.myqcloud.com/mp_v1.1/static/js/qiniu.js"></script>#}
-    <script type="text/javascript" src="/static/js/qiniu.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="email=no" />
+    <link rel="stylesheet" href="https://static-10014880.file.myqcloud.com/v1.1/static/css/oem_v1/base.css">
+    <link rel="stylesheet" href="https://static-10014880.file.myqcloud.com/v1.1/static/css/oem_v1/loadingstyle.css">
+    <link rel="stylesheet" href="https://static-10014880.file.myqcloud.com/v1.1/static/css/oem_v1/size.css">
+    <link rel="stylesheet" href="https://static-10014880.file.myqcloud.com/v1.1/rejimg/css/MultiPicker.css">
+    <title>车辆管理系统-创建车辆每日运营记录</title>
+    <style>
+        .page{
+            max-width: 750px;
+            background: url("https://static-10014880.file.myqcloud.com/v1.1/rejimg/school/schoolInfo_bg.png") no-repeat;
+            background-size: 100% 100%;
+            padding: 2.1rem 1.25rem 4rem;
+            /*height: 100%;*/
+        }
+        .title{
+            font-size: 1.5rem;
+            color: #ffffff;
+            font-weight: 700;
+            /*margin: 0 auto;*/
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        .myForm{
+            padding: 1.25rem;
+            background: rgba(255,255,255,0.30);
+            border-radius: 4px;
+        }
+        .formItem{
+            height: 2.5rem;
+            margin: 0.5rem 0;
+            border-bottom: solid #ffffff 1px;
+        }
+        input,select{
+            height: 100%;
+            width: 70%;
+            background: none;
+            font-size: 1rem;
+            color: #ffffff;
+            margin-bottom: 0.6rem;
+        }
+        label{
+            text-align: right;
+            display: inline-block;
+            font-size: 1rem;
+            color: #ffffff;
+            width: 28%;
+        }
+        .submit{
+            width: 7.5rem;
+            height: 2.25rem;
+            background: #ffffff;
+            border-radius: 68px;
+            font-size: 0.88rem;
+            color: #FE7D14;
+        }
+    </style>
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="col-md-10 col-md-offset-2 nav-slider">
-            <div class="page-header">
-                <h1>创建车辆每日运营记录  <small>车辆管理系统</small></h1>
-            </div>
-            <form class="form-message form-horizontal" novalidate="novalidate">
-                {% csrf_token %}
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">车牌号</label>
-                    <div class="col-sm-6">
-                        <select id="selectBusNumber" class="form-control">
-                            <option name="selectBusNumber" value="豫A 2287">豫A 2287</option>
-                            <option name="selectBusNumber" value="豫A 2069">豫A 2069</option>
-                            <option name="selectBusNumber" value="豫A 5658">豫A 5658</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">车辆司机</label>
-                    <div class="col-sm-6">
-                        <select id="selectDriver" class="form-control">
-                            <option name="selectDriver" value="李师傅">李师傅</option>
-                            <option name="selectDriver" value="马国锋">马国锋</option>
-                            <option name="selectDriver" value="小康">小康</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">车辆售票员</label>
-                    <div class="col-sm-6">
-                        <select id="selectSaler" class="form-control">
-                            <option name="selectSaler" value="范朋源">范朋源</option>
-                            <option name="selectSaler" value="范清源">范清源</option>
-                            <option name="selectSaler" value="马建">马建</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">车辆运行路线</label>
-                    <div class="col-sm-6">
-                        <select id="selectLuxian" class="form-control">
-                            <option name="selectLuxian" value="郑州到项城">郑州到项城</option>
-                            <option name="selectLuxian" value="项城到郑州">项城到郑州</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="real_money" class="col-sm-2 control-label">本趟到手金额</label>
-                    <div class="col-sm-10">
-                      <input type="number" class="form-control" name="real_money" id="real_money" placeholder="本趟到手金额">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="other_money" class="col-sm-2 control-label">本趟总花销(包含油钱，饭钱及其他)</label>
-                    <div class="col-sm-10">
-                      <input type="number" class="form-control" name="other_money" id="other_money" placeholder="本趟总花销(包含油钱，饭钱及其他)">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="sum_money" class="col-sm-2 control-label">总钱数</label>
-                    <div class="col-sm-10">
-                      <input type="number" class="form-control" name="sum_money" id="sum_money" placeholder="总钱数">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="peoples" class="col-sm-2 control-label">总人数</label>
-                    <div class="col-sm-2">
-                      <input type="number" class="form-control" name="peoples" id="peoples" placeholder="总人数">
-                        <div id="normal" ></div>
-                    </div>
-                </div>
-
-            </form>
-                <div class="form-group">
-                    <div class="col-sm-4 col-md-offset-4">
-                        <button class="btn btn-default" id="save" type="button">创建</button>
-                    </div>
-{#                        <label for="selectID" class="col-sm-2 control-label">活动所属类别</label>#}
-{#                    <button type="button" id="save">创建</button>#}
-                </div>
-
+<div id="app" class="page">
+    <p class="title">创建车辆每日运营记录</p>
+    <div name="myForm" class="myForm">
+        <div class="formItem">
+            <label for="carPlate">车牌号：</label>
+            <input type="text" id="carPlate" name="carPlate" v-model="carPlate">
+        </div>
+        <div class="formItem">
+        <label for="carDriver">司机：</label>
+            <input type="text" id="carDriver" name="carDriver" v-model="carDriver">
+        </div>
+        <div class="formItem">
+        <label for="carSeller">售票员：</label>
+            <input type="text" id="carSeller" name="carSeller" v-model="carSeller">
+        </div>
+        <div class="formItem">
+        <label for="carLines">运行路线：</label>
+        <select v-model="carLines" name="carLines" id="carLines">
+            <option value="郑州到项城">郑州到项城</option>
+            <option value="项城到郑州">项城到郑州</option>
+        </select>
+        </div>
+        <div class="formItem">
+            <label for="profit">到手金额：</label>
+             <input type="text" id="profit" name="profit" v-model="profit">
+        </div>
+        <div class="formItem">
+            <label for="cost">总花销：</label>
+            <input type="text" id="cost" name="cost" v-model="cost">
+        </div>
+        <div class="formItem">
+            <label for="sum">总钱数：</label>
+            <input type="number" id="sum" name="sum" v-model="sum">
+        </div>
+        <div class="formItem">
+            <label for="sumPeople">总人数：</label>
+            <input type="number" id="sumPeople" name="sumPeople" v-model="sumPeople">
+        </div>
+        <p style="color: red; font-size: 0.88rem;">每人票价40，实际总金额应该是：{{budget}}元，请核对！</p>
+        <div class="formItem" style="border-bottom: none;margin-top: 1rem;">
+            <button  class="submit" style="float: left">查看运营记录</button>
+            <button  class="submit" style="float: right">创建</button>
         </div>
     </div>
-    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $("#real_money").focusout(function(){
-                var money1 = $("#real_money").val();
-                var money2 = $("#other_money").val();
-                if (money2){
-                    var money = parseInt(money1) + parseInt(money2);
-                } else {
-                    var money = parseInt(money1);
-                }
+</div>
+<!--信息提示框-->
+<div id="toast">
+    <div class="toast_mask"></div>
+    <div class="toast">
+        <i id="icon_toast" class="weui_icon_success"></i>
+        <p id="toast_con" class="toast_con">提交成功</p>
+    </div>
+</div>
+<div id="targetContainer"></div>
 
-              $("#sum_money").val(money);
+<script type="text/javascript" src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+<script type="text/javascript" src="https://static-10014880.file.myqcloud.com/v1.1/rejimg/js/MultiPicker.js "></script>
+<script type="text/javascript">
+    var toastError=function(_desc,callback){_iconToast.attr("class","weui_icon_error");_toast_con.html(_desc);_$toast.show();setTimeout(function(){_$toast.hide();if(callback){callback()}},1200)};
+    var toastWarning=function(_desc,callback){_iconToast.attr("class","weui_icon_warning");_toast_con.html(_desc);_$toast.show();setTimeout(function(){_$toast.hide();if(callback){callback()}},1200)};
+    var toastSuccess=function(_desc,callback){_iconToast.attr("class","weui_icon_success");_toast_con.html(_desc);_$toast.show();setTimeout(function(){_$toast.hide();if(callback){callback()}},1200)};
+    var baseUrl = 'https://api.m.kuosanyun.com';
+//    var _iconToast=$('#icon_toast'), _toast_con=$("#toast_con"), _$loadingToast=$("#loadingToast"), _$toast=$("#toast"), _$weuiToastCon=$("#weuiToastCon");
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+            carPlate: '',
+            carDriver: '',
+            carSeller: '',
+            carLines: '',
+            profit: '',
+            cost: '',
+            sumPeople: ''
+        },
+        created: function () {
+            var that = this;
+            var $city = [
+                    {'value': '豫A2287','id': 0,'child':[{'value': '李师傅','child':[{'value': '范朋源'}]}]},
+                    {'value': '豫A2069','id': 1,'child':[{'value': '马国峰','child':[{'value': '范清源'}]}]},
+                    {'value': '豫A5658', 'id': 2,'child':[{'value': '小康','child':[{'value': '马建'}]}]}];
+            var a = new MultiPicker({
+                input: 'carPlate', // 点击触发插件的input框的id
+                container: 'targetContainer', // 插件插入的容器id
+                jsonData: $city,
+                success: function(arr) {
+                      console.log(arr);
+                    that.$data.carPlate = arr[0].value;
+                    that.$data.carDriver = arr[1].value;
+                    that.$data.carSeller = arr[2].value;
+                }
             });
-            $("#other_money").focusout(function(){
-                var money1 = $("#real_money").val();
-                var money2 = $("#other_money").val();
-                var money = parseInt(money1) + parseInt(money2);
-              $("#sum_money").val(money);
-            });
-            $("#peoples").focusout(function(){
-                var peoples = $("#peoples").val();
-                console.log("peoples:",peoples);
-                var money = parseInt(peoples)*parseInt(40);
-                console.log("money:",money);
-              $("#normal").html("<span>按每人都是四十的票价，总收入应该是："+money+"元</span>");
-            });
-            $('#save').on('click', function () {
-                var options = $("#selectBusNumber").val();
-                var options1 = $("#selectDriver").val();
-                var options2 = $("#selectSaler").val();
-                var options3 = $("#selectLuxian").val();
-                console.log(options);
-                var arguments = $(".form-message").serializeArray();//表格的数据
-                {#                var arguments = {"active_url":$("#active_url").val(),"active_img":$("#active_img").val(),"main_title":$("#main_title").val(),"secound_title":$("#secound_title").val(),"group_id":options.val()};#}
-                {#                var args = JSON.stringify(arguments);#}
-                arguments.push({"name": "bus_number", "value": options});
-                arguments.push({"name": "driver", "value": options1});
-                arguments.push({"name": "saler", "value": options2});
-                arguments.push({"name": "luxian", "value": options3});
-                console.log(arguments);
-                $.post("/bus/addRun/", arguments,
-                    function (data) {
-                        if (data["status"] == 200) {
-                            location.replace("/bus/addRun/");
-                            {#                            alert("恭喜您！创建活动成功！");#}
-                        }
-                        else {
-                            location.replace("/food/createActive_fail/");
-                            {#                            alert("抱歉！创建活动失败！");#}
-                        }
-                    }
-                    , "json");
-            })
-        })
-    </script>
+        },
+        computed: {
+            sum: function () {
+                    var profit = parseInt(this.$data.profit) ? parseInt(this.$data.profit) : 0;
+                    var cost = parseInt(this.$data.cost) ? parseInt(this.$data.cost) : 0;
+                    var sum =  profit + cost;
+                return  sum ? sum : '';
+            },
+            budget: function () {
+                var sumPeople = parseInt(this.$data.sumPeople) ? parseInt(this.$data.sumPeople) : 0;
+                var budget = sumPeople * 40;
+                return budget ? budget : '';
+            }
+        },
+        methods: {
+            clicktap: function () {
+                console.log(this.$data);
+            }
+        },
+        delimiters: ['${', '}'],
+        filter: {
+            money: function(value, type) {
+                return "¥" + value.toFixed(2) + ' ' + type;
+            }
+        }
+    })
+</script>
 </body>
 </html>
