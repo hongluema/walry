@@ -39,23 +39,53 @@ class AddRunLoggingView(View):
             today_17dian = datetime.strptime(today_17dian_string, "%Y-%m-%d %H:%M:%S")
             if luxian == "郑州到项城":
                 time = today_11dian
+                is_exist = RunLogging.objects.filter(time=time,bus_number=bus_number).first()
+                if is_exist:
+                    return JsonResponse({"status": 400, "errorMsg": str("已经添加过，无需重复添加记录")})
+                run = RunLogging()
+                run.run_id = rand_str(12)
+                run.bus_number = bus_number
+                run.driver = driver
+                run.saler = saler
+                run.bus_peoples = bus_peoples
+                run.time = time
+                run.real_money = change_money(real_money)
+                run.other_money = change_money(other_money)
+                run.sum_money = change_money(sum_money)
+                run_xia = RunLogging.objects.filter(bus_number=bus_number, time=today_11dian).first()  # 下午的金额
+                if run_xia:
+                    xia_real_money = run_xia.real_money #实际到手的金额
+                else:
+                    xia_real_money = change_money(0.00)
+                run.day_sum_money = real_money + xia_real_money
+                run.save()
             else:
                 time = today_17dian
+                is_exist = RunLogging.objects.filter(time=time, bus_number=bus_number).first()
+                if is_exist:
+                    return JsonResponse({"status": 400, "errorMsg": str("已经添加过，无需重复添加记录")})
+                run = RunLogging()
+                run.run_id = rand_str(12)
+                run.bus_number = bus_number
+                run.driver = driver
+                run.saler = saler
+                run.bus_peoples = bus_peoples
+                run.time = time
+                run.real_money = change_money(real_money)
+                run.other_money = change_money(other_money)
+                run.sum_money = change_money(sum_money)
+                run_shang = RunLogging.objects.filter(bus_number=bus_number,time=today_11dian).first()#上午的金额
+                if run_shang:
+                    shang_real_money = run_shang.real_money
+                else:
+                    shang_real_money = change_money(0.00)
+                run.day_sum_money = real_money + shang_real_money
+                run.save()
             print ">>>time:",time
 
-            run = RunLogging()
-            run.run_id = rand_str(12)
-            run.bus_number = bus_number
-            run.driver = driver
-            run.saler = saler
-            run.bus_peoples = bus_peoples
-            run.time = time
-            run.real_money = real_money
-            run.other_money = other_money
-            run.sum_money = sum_money
-            run.day_sum_money = real_money
-            run.save()
+
             return JsonResponse({"status": 200})
         except Exception, e:
             traceback.print_exc()
             return JsonResponse({"status":500,"errorMsg":str(e)})
+
