@@ -96,6 +96,10 @@
     <script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
+            $("#real_money").change(function(){
+                var money = $("#real_money").val();
+              $("#sum_money").val(money);
+            });
             $('#save').on('click', function () {
                 var options = $("#selectBusNumber").val();
                 var options1 = $("#selectDriver").val();
