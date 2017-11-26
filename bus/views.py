@@ -13,6 +13,16 @@ from django.views.generic import View, TemplateView
 from bus.models import RunLogging
 # Create your views here.
 
+"""
+错误解决办法
+UnicodeEncodeError: 'ascii' codec can't encode characters in position 0-13: ordinal not in range(128)
+"""
+import sys
+defaultencoding = 'utf-8'
+if sys.getdefaultencoding() != defaultencoding:
+    reload(sys)
+    sys.setdefaultencoding(defaultencoding)
+
 #创建汽车运营流水记录
 #"""每天每辆汽车分为上午11：00(zheng->xiang)，下午5：00(xiang->zheng)两个运营记录"""
 class AddRunLoggingView(View):
