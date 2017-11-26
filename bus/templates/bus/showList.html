@@ -58,46 +58,46 @@
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" ></script>
         <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js" ></script>
     <script type="text/javascript">
-        $(document).ready(function () {
-
+{#        $(document).ready(function () {#}
+{##}
             {# DaTaTable插件展示表格 #}
-            var table = $("#table-group").DataTable({   //这里定义table变量是为了提交数据成功后的刷新数据用的
-                    language: {
-                        "sProcessing": "处理中...",
-                        "sLengthMenu": "显示 _MENU_ 项结果",
-                        "sZeroRecords": "没有匹配结果",
-                        "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
-                        "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
-                        "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
-                        "sInfoPostFix": "",
-                        "sSearch": "搜索:",
-                        "sUrl": "",
-                        "sEmptyTable": "表中数据为空",
-                        "sLoadingRecords": "载入中...",
-                        "sInfoThousands": ",",
-                        "oPaginate": {
-                            "sFirst": "首页",
-                            "sPrevious": "上页",
-                            "sNext": "下页",
-                            "sLast": "末页"
-                        },
-                        "oAria": {
-                            "sSortAscending": ": 以升序排列此列",
-                            "sSortDescending": ": 以降序排列此列"
-                        }
-                    },
-                    'order':[[3,'desc'],],
-                    'ajax':"/activity/get_group_info_ajax/",
-                    'columns':[
-                        {"data":"group_id"},
-                        {"data":"name"},
-                        {"data":"sequence"},
-                        {"data":"create_time"},
-                        {"data":"youxiao"},
-                        {"data":"action"}
-                    ]
-            });
-        })
+{#            var table = $("#table-group").DataTable({   //这里定义table变量是为了提交数据成功后的刷新数据用的#}
+{#                    language: {#}
+{#                        "sProcessing": "处理中...",#}
+{#                        "sLengthMenu": "显示 _MENU_ 项结果",#}
+{#                        "sZeroRecords": "没有匹配结果",#}
+{#                        "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",#}
+{#                        "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",#}
+{#                        "sInfoFiltered": "(由 _MAX_ 项结果过滤)",#}
+{#                        "sInfoPostFix": "",#}
+{#                        "sSearch": "搜索:",#}
+{#                        "sUrl": "",#}
+{#                        "sEmptyTable": "表中数据为空",#}
+{#                        "sLoadingRecords": "载入中...",#}
+{#                        "sInfoThousands": ",",#}
+{#                        "oPaginate": {#}
+{#                            "sFirst": "首页",#}
+{#                            "sPrevious": "上页",#}
+{#                            "sNext": "下页",#}
+{#                            "sLast": "末页"#}
+{#                        },#}
+{#                        "oAria": {#}
+{#                            "sSortAscending": ": 以升序排列此列",#}
+{#                            "sSortDescending": ": 以降序排列此列"#}
+{#                        }#}
+{#                    },#}
+{#                    'order':[[3,'desc'],],#}
+{#                    'ajax':"/activity/get_group_info_ajax/",#}
+{#                    'columns':[#}
+{#                        {"data":"group_id"},#}
+{#                        {"data":"name"},#}
+{#                        {"data":"sequence"},#}
+{#                        {"data":"create_time"},#}
+{#                        {"data":"youxiao"},#}
+{#                        {"data":"action"}#}
+{#                    ]#}
+{#            });#}
+{#        })#}
     </script>
 </body>
 </html>
