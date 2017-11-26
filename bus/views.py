@@ -59,6 +59,7 @@ class AddRunLoggingView(View):
                 run.saler = saler
                 run.bus_peoples = bus_peoples
                 run.time = time
+                run.luxian = luxian
                 run.real_money = change_money(real_money)
                 run.other_money = change_money(other_money)
                 run.sum_money = change_money(sum_money)
@@ -84,6 +85,7 @@ class AddRunLoggingView(View):
                 run.saler = saler
                 run.bus_peoples = bus_peoples
                 run.time = time
+                run.luxian = luxian
                 run.real_money = change_money(real_money)
                 run.other_money = change_money(other_money)
                 run.sum_money = change_money(sum_money)
