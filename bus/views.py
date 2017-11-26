@@ -67,7 +67,7 @@ class AddRunLoggingView(View):
                     xia_real_money = run_xia.real_money #实际到手的金额
                 else:
                     xia_real_money = change_money(0.00)
-                run.day_sum_money = real_money + xia_real_money
+                run.day_sum_money = change_money(real_money) + xia_real_money
                 run.save()
             else:
                 time = today_17dian
@@ -89,7 +89,7 @@ class AddRunLoggingView(View):
                     shang_real_money = run_shang.real_money
                 else:
                     shang_real_money = change_money(0.00)
-                run.day_sum_money = real_money + shang_real_money
+                run.day_sum_money = change_money(real_money) + shang_real_money
                 run.save()
             print ">>>time:",time
 
