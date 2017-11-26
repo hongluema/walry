@@ -127,7 +127,7 @@
                 $.post("/bus/addRun/", arguments,
                     function (data) {
                         if (data["status"] == 200) {
-                            location.replace("/food/createFoodSuccess/");
+                            location.replace("/bus/addRun/");
                             {#                            alert("恭喜您！创建活动成功！");#}
                         }
                         else {
