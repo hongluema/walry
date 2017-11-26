@@ -16,8 +16,8 @@
                 <a href="https://zch.kuosanyun.com/activity/createGroup/"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
             </button>
 
-                info: {{ context.info }}
-                {% for c in context.info %}
+                info: {{ info }}
+                {% for c in info %}
                 车牌号：    <tr>{{ c.bus_number }}</tr>
                 {% endfor %}
 
