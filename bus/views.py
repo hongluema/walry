@@ -116,6 +116,10 @@ class ShowView(TemplateView):
         except:
             page = 1
         bus_number = self.request.GET["bus_number"]
-        context = RunLogging.objects.filter(bus_number__contains=bus_number).order_by("-time")
+        runs = RunLogging.objects.filter(bus_number__contains=bus_number).order_by("-time")[(page-1)*10:page*10]
+        info = []
+        for r in runs:
+            info.append({"bus_number":r.bus_number,"bus_peoples":r.bus_peoples})
+        context["info"] = info
         return context
 
