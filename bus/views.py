@@ -22,14 +22,14 @@ class AddRunLoggingView(View):
     def post(self,request):
         try:
             print ">>>request.POST", request.POST
-            bus_number = request.POST("bus_number") #车牌号
-            real_money = request.POST("real_money") #本趟到手金额
-            other_money = request.POST("sum_money") #本趟其他花销
-            sum_money = request.POST("sum_money")  # 本趟总收入
-            luxian = request.POST("luxian") #路线
-            bus_peoples = request.POST("bus_peoples") #车上人数
-            driver = request.POST("driver") #司机
-            saler = request.POST("saler") #售票员
+            bus_number = request.POST["bus_number"] #车牌号
+            real_money = request.POST["real_money"] #本趟到手金额
+            other_money = request.POST["sum_money"] #本趟其他花销
+            sum_money = request.POST["sum_money"]  # 本趟总收入
+            luxian = request.POST["luxian"] #路线
+            bus_peoples = request.POST["bus_peoples"] #车上人数
+            driver = request.POST["driver"] #司机
+            saler = request.POST["saler"] #售票员
 
             today = date.today()
             ts = today.strftime("%Y-%m-%d ")
