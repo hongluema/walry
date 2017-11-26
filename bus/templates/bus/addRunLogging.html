@@ -57,6 +57,24 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label for="real_money" class="col-sm-2 control-label">本趟到手金额</label>
+                    <div class="col-sm-10">
+                      <input type="number" class="form-control" name="real_money" id="real_money" placeholder="本趟到手金额">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="other_money" class="col-sm-2 control-label">本趟总花销(包含油钱，饭钱及其他)</label>
+                    <div class="col-sm-10">
+                      <input type="number" class="form-control" name="other_money" id="other_money" placeholder="本趟总花销(包含油钱，饭钱及其他)">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="sum_money" class="col-sm-2 control-label">总钱数</label>
+                    <div class="col-sm-10">
+                      <input type="number" class="form-control" name="sum_money" id="sum_money" placeholder="总钱数">
+                    </div>
+                </div>
+                <div class="form-group">
                     <label for="sum_money" class="col-sm-2 control-label">总钱数</label>
                     <div class="col-sm-10">
                       <input type="number" class="form-control" name="sum_money" id="sum_money" placeholder="总钱数">
@@ -101,7 +119,7 @@
                 $.post("/bus/addRun/", arguments,
                     function (data) {
                         if (data["status"] == 200) {
-                            location.replace("/bus/createFoodSuccess/");
+                            location.replace("/food/createFoodSuccess/");
                             {#                            alert("恭喜您！创建活动成功！");#}
                         }
                         else {

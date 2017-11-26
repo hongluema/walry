@@ -22,20 +22,26 @@ class AddRunLoggingView(View):
     def post(self,request):
         try:
             print ">>>request.POST", request.POST
-            """
-            bus_number = request.POST("bus_number")
-            money = request.POST("money")
-            time = request.POST("time")
-            bus_peoples = request.POST("bus_peoples")
-            driver = request.POST("driver")
-            saler = request.POST("saler")
+            bus_number = request.POST("bus_number") #车牌号
+            real_money = request.POST("real_money") #本趟到手金额
+            other_money = request.POST("sum_money") #本趟其他花销
+            sum_money = request.POST("sum_money")  # 本趟总收入
+            luxian = request.POST("luxian") #路线
+            bus_peoples = request.POST("bus_peoples") #车上人数
+            driver = request.POST("driver") #司机
+            saler = request.POST("saler") #售票员
+
             today = date.today()
             ts = today.strftime("%Y-%m-%d ")
             today_11dian_string = ts+"11:00:00"
             today_11dian = datetime.strptime(today_11dian_string,"%Y-%m-%d %H:%M:%S")
             today_17dian_string = ts+"17:00:00"
             today_17dian = datetime.strptime(today_17dian_string, "%Y-%m-%d %H:%M:%S")
-            """
+            if luxian == "郑州到项城":
+                time = today_11dian
+            else:
+                time = today_17dian
+            print ">>>time:",time
             return JsonResponse({"status": 200})
         except Exception, e:
             return JsonResponse({"status":500,"errorMsg":str(e)})
