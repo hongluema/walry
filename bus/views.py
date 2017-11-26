@@ -36,6 +36,7 @@ class AddRunLoggingView(View):
             today_17dian_string = ts+"17:00:00"
             today_17dian = datetime.strptime(today_17dian_string, "%Y-%m-%d %H:%M:%S")
             """
+            return JsonResponse({"status": 200})
         except Exception, e:
             return JsonResponse({"status":500,"errorMsg":str(e)})
             traceback.print_exc()
