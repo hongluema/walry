@@ -98,7 +98,7 @@
                 arguments.push({"name": "saler", "value": options2});
                 arguments.push({"name": "luxian", "value": options3});
                 console.log(arguments);
-                $.post("/food/addRun/", arguments,
+                $.post("/bus/addRun/", arguments,
                     function (data) {
                         if (data["status"] == 200) {
                             location.replace("/bus/createFoodSuccess/");
