@@ -15,23 +15,12 @@
             <button type="button" class="btn btn-default" aria-label="Right Align">
                 <a href="https://zch.kuosanyun.com/activity/createGroup/"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
             </button>
-            <table class="table table-striped table-bordered table-hover" id="table-group">
-            <thead>
-                <tr style="background-color: #CAE1FF;">
-                    <th>分组id</th>
-                    <th>分组名称</th>
-                    <th>分组排序</th>
-                    <th>创建时间</th>
-                    <th>分组是否有效(0是无效，1是有效)</th>
-                    <th>操作</th>
-                </tr>
-            </thead>
-            <tbody>
+
+
                 {% for c in context.info %}
                 车牌号：    <tr>{{ c.bus_number }}</tr>
                 {% endfor %}
-            </tbody>
-        </table>
+        
         </div>
     </div>
 {#    <nav aria-label="Page navigation">#}
