@@ -21,6 +21,8 @@ class AddRunLoggingView(View):
 
     def post(self,request):
         try:
+            print ">>>request.POST", request.POST
+            """
             bus_number = request.POST("bus_number")
             money = request.POST("money")
             time = request.POST("time")
@@ -33,7 +35,7 @@ class AddRunLoggingView(View):
             today_11dian = datetime.strptime(today_11dian_string,"%Y-%m-%d %H:%M:%S")
             today_17dian_string = ts+"17:00:00"
             today_17dian = datetime.strptime(today_17dian_string, "%Y-%m-%d %H:%M:%S")
-
+            """
         except Exception, e:
             return JsonResponse({"status":500,"errorMsg":str(e)})
             traceback.print_exc()

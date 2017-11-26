@@ -2,9 +2,115 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>添加饭菜信息</title>
+    ﻿<link type="text/css" href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+{#    <script type="text/javascript" src="https://static-10014880.file.myqcloud.com/mp_v1.1/static/js/plupload.full.min.js"></script>#}
+    <script type="text/javascript" src="/static/js/plupload.full.min.js"></script>
+{#    <script type="text/javascript" src="https://static-10014880.file.myqcloud.com/mp_v1.1/static/js/qiniu.js"></script>#}
+    <script type="text/javascript" src="/static/js/qiniu.js"></script>
 </head>
 <body>
+    <div class="container-fluid">
+        <div class="col-md-10 col-md-offset-2 nav-slider">
+            <div class="page-header">
+                <h1>创建车辆每日运营记录  <small>车辆管理系统</small></h1>
+            </div>
+            <form class="form-message form-horizontal" novalidate="novalidate">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">车牌号</label>
+                    <div class="col-sm-6">
+                        <select id="selectBusNumber" class="form-control">
+                            <option name="selectBusNumber" value="豫A 2287">豫A 2287</option>
+                            <option name="selectBusNumber" value="豫A 2069">豫A 2069</option>
+                            <option name="selectBusNumber" value="豫A 5658">豫A 5658</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">车辆司机</label>
+                    <div class="col-sm-6">
+                        <select id="selectDriver" class="form-control">
+                            <option name="selectDriver" value="李师傅">李师傅</option>
+                            <option name="selectDriver" value="马国锋">马国锋</option>
+                            <option name="selectDriver" value="小康">小康</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">车辆售票员</label>
+                    <div class="col-sm-6">
+                        <select id="selectSaler" class="form-control">
+                            <option name="selectSaler" value="范朋源">范朋源</option>
+                            <option name="selectSaler" value="范清源">范清源</option>
+                            <option name="selectSaler" value="马建">马建</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">车辆运行路线</label>
+                    <div class="col-sm-6">
+                        <select id="selectLuxian" class="form-control">
+                            <option name="selectLuxian" value="郑州到项城">郑州到项城</option>
+                            <option name="selectLuxian" value="项城到郑州">项城到郑州</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="sum_money" class="col-sm-2 control-label">总钱数</label>
+                    <div class="col-sm-10">
+                      <input type="number" class="form-control" name="sum_money" id="sum_money" placeholder="总钱数">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="peoples" class="col-sm-2 control-label">总人数</label>
+                    <div class="col-sm-10">
+                      <input type="number" class="form-control" name="peoples" id="peoples" placeholder="总人数">
+                    </div>
+                </div>
 
+            </form>
+                <div class="form-group">
+                    <div class="col-sm-4 col-md-offset-4">
+                        <button class="btn btn-default" id="save" type="button">创建</button>
+                    </div>
+{#                        <label for="selectID" class="col-sm-2 control-label">活动所属类别</label>#}
+{#                    <button type="button" id="save">创建</button>#}
+                </div>
+
+        </div>
+    </div>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#save').on('click',function () {
+                var options = $("#selectBusNumber").val();
+                var options1 = $("#selectDriver").val();
+                var options2 = $("#selectSaler").val();
+                var options3 = $("#selectLuxian").val();
+                console.log(options);
+                var arguments = $(".form-message").serializeArray();//表格的数据
+{#                var arguments = {"active_url":$("#active_url").val(),"active_img":$("#active_img").val(),"main_title":$("#main_title").val(),"secound_title":$("#secound_title").val(),"group_id":options.val()};#}
+{#                var args = JSON.stringify(arguments);#}
+                arguments.push({"name":"bus_number","value":options});
+                arguments.push({"name":"driver","value":options1});
+                arguments.push({"name":"saler","value":options2});
+                arguments.push({"name":"luxian","value":options3});
+                console.log(arguments);
+                $.post("/food/addRun/",arguments,
+                    function (data) {
+                        if(data["status"] == 200){
+                            location.replace("/bus/createFoodSuccess/");
+{#                            alert("恭喜您！创建活动成功！");#}
+                        }
+                        else{
+                            location.replace("/food/createActive_fail/");
+{#                            alert("抱歉！创建活动失败！");#}
+                        }
+                    }
+                    ,"json");
+            })
+    </script>
 </body>
 </html>
