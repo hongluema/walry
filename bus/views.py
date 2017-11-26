@@ -44,5 +44,5 @@ class AddRunLoggingView(View):
             print ">>>time:",time
             return JsonResponse({"status": 200})
         except Exception, e:
-            return JsonResponse({"status":500,"errorMsg":str(e)})
             traceback.print_exc()
+            return JsonResponse({"status":500,"errorMsg":str(e)})
