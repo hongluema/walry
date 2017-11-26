@@ -106,3 +106,16 @@ class AddRunLoggingView(View):
             traceback.print_exc()
             return JsonResponse({"status":500,"errorMsg":str(e)})
 
+class ShowView(TemplateView):
+    template_name = "bus/showList.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(ShowView, self).get_context_data(**kwargs)
+        try:
+            page = int(self.request.GET.get("page","1")) #这里做了异常处理，如果page是字符，就会变成下面的page=1
+        except:
+            page = 1
+        bus_number = self.request.GET["bus_number"]
+        context = RunLogging.objects.filter(bus_number__contains=bus_number).order_by("-time")
+        return context
+
