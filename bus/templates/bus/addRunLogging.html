@@ -105,8 +105,9 @@
             });
             $("#peoples").keydown(function(){
                 var peoples = $("#peoples").val();
+                console.log("peoples:",peoples);
                 var money = parseInt(peoples)*parseInt(40);
-                console.log("money:",money)
+                console.log("money:",money);
               $("#normal").html("<span>按每人都是四十的票价，总收入应该是："+money+"元</span>");
             });
             $('#save').on('click', function () {
