@@ -84,33 +84,34 @@
     <script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-            $('#save').on('click',function () {
+            $('#save').on('click', function () {
                 var options = $("#selectBusNumber").val();
                 var options1 = $("#selectDriver").val();
                 var options2 = $("#selectSaler").val();
                 var options3 = $("#selectLuxian").val();
                 console.log(options);
                 var arguments = $(".form-message").serializeArray();//表格的数据
-{#                var arguments = {"active_url":$("#active_url").val(),"active_img":$("#active_img").val(),"main_title":$("#main_title").val(),"secound_title":$("#secound_title").val(),"group_id":options.val()};#}
-{#                var args = JSON.stringify(arguments);#}
-                arguments.push({"name":"bus_number","value":options});
-                arguments.push({"name":"driver","value":options1});
-                arguments.push({"name":"saler","value":options2});
-                arguments.push({"name":"luxian","value":options3});
+                {#                var arguments = {"active_url":$("#active_url").val(),"active_img":$("#active_img").val(),"main_title":$("#main_title").val(),"secound_title":$("#secound_title").val(),"group_id":options.val()};#}
+                {#                var args = JSON.stringify(arguments);#}
+                arguments.push({"name": "bus_number", "value": options});
+                arguments.push({"name": "driver", "value": options1});
+                arguments.push({"name": "saler", "value": options2});
+                arguments.push({"name": "luxian", "value": options3});
                 console.log(arguments);
-                $.post("/food/addRun/",arguments,
+                $.post("/food/addRun/", arguments,
                     function (data) {
-                        if(data["status"] == 200){
+                        if (data["status"] == 200) {
                             location.replace("/bus/createFoodSuccess/");
-{#                            alert("恭喜您！创建活动成功！");#}
+                            {#                            alert("恭喜您！创建活动成功！");#}
                         }
-                        else{
+                        else {
                             location.replace("/food/createActive_fail/");
-{#                            alert("抱歉！创建活动失败！");#}
+                            {#                            alert("抱歉！创建活动失败！");#}
                         }
                     }
-                    ,"json");
+                    , "json");
             })
+        }
     </script>
 </body>
 </html>
