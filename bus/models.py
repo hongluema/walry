@@ -14,6 +14,7 @@ class RunLogging(models.Model):
     other_money = models.DecimalField(verbose_name="每趟额外花销金额",max_digits=13,decimal_places=2,null=False,default=0.00)
     sum_money = models.DecimalField(verbose_name="每趟总金额",max_digits=13,decimal_places=2,null=False,default=0.00)
     time = models.DateTimeField(verbose_name="运营时间")
+    luxian = models.CharField(verbose_name="路线",max_length=64,default='')
     bus_peoples = models.IntegerField(verbose_name="车上人数",null=True,default=0)
     day_sum_money = models.DecimalField(verbose_name="当日总金额",max_digits=13,decimal_places=2,null=False,default=0.00)
 
