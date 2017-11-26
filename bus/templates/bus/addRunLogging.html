@@ -97,6 +97,17 @@
     <script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
+            $("#real_money").focusout(function(){
+                var money1 = $("#real_money").val();
+                var money2 = $("#other_money").val();
+                if (money2){
+                    var money = parseInt(money1) + parseInt(money2);
+                } else {
+                    var money = parseInt(money1);
+                }
+
+              $("#sum_money").val(money);
+            });
             $("#other_money").focusout(function(){
                 var money1 = $("#real_money").val();
                 var money2 = $("#other_money").val();
