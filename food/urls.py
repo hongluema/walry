@@ -2,7 +2,7 @@
 from django.conf.urls import url
 from . import views
 
-app_name = "weixin"
+app_name = "food"
 
 urlpatterns = [
     url(r'^addGroup/$', views.AddGroupView.as_view()),#添加菜系
