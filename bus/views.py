@@ -62,9 +62,12 @@ class AddRunLoggingView(View):
                 run.real_money = change_money(real_money)
                 run.other_money = change_money(other_money)
                 run.sum_money = change_money(sum_money)
-                run_xia = RunLogging.objects.filter(bus_number=bus_number, time=today_11dian).first()  # 下午的金额
+                run_xia = RunLogging.objects.filter(bus_number=bus_number, time=today_17dian).first()  # 下午的金额
                 if run_xia:
+                    print "xia........."
                     xia_real_money = run_xia.real_money #实际到手的金额
+                    run_xia.day_sum_money = change_money(real_money) + xia_real_money
+                    run_xia.save()
                 else:
                     xia_real_money = change_money(0.00)
                 run.day_sum_money = change_money(real_money) + xia_real_money
@@ -87,6 +90,8 @@ class AddRunLoggingView(View):
                 run_shang = RunLogging.objects.filter(bus_number=bus_number,time=today_11dian).first()#上午的金额
                 if run_shang:
                     shang_real_money = run_shang.real_money
+                    run_shang.day_sum_money = change_money(real_money) + shang_real_money
+                    run_shang.save()
                 else:
                     shang_real_money = change_money(0.00)
                 run.day_sum_money = change_money(real_money) + shang_real_money
