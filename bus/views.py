@@ -119,7 +119,10 @@ class ShowView(TemplateView):
         runs = RunLogging.objects.filter(bus_number__contains=bus_number).order_by("-time")[(page-1)*10:page*10]
         info = []
         for r in runs:
-            info.append({"bus_number":r.bus_number,"bus_peoples":r.bus_peoples})
+            info.append({"bus_number":r.bus_number,"bus_peoples":r.bus_peoples,"time": "{} 上午".format(r.time.strftime("%Y-%m-%d")) if "11" in r.time.strftime("%Y-%m-%d %H:%M:%S") else "{} 下午".format(r.time.strftime("%Y-%m-%d")),\
+                         "luxian":r.luxian,"bus_peoples":r.bus_peoples,"day_sum_money":r.day_sum_money,\
+                         "driver":r.driver,"saler":r.saler,"real_money":r.real_money,"other_money":r.other_money,\
+                         "sum_money":r.sum_money})
         context["info"] = info
         return context
 

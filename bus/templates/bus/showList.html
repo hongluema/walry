@@ -19,6 +19,10 @@
                 info: {{ info }}
                 {% for c in info %}
                 车牌号：    <tr>{{ c.bus_number }}</tr>
+                时间：    <tr>{{ c.time }}</tr>
+                路线：    <tr>{{ c.luxian }}</tr>
+                当天总金额：    <tr>{{ c.day_sum_money }}</tr>
+                这一趟金额：    <tr>{{ c.real_money }}</tr>
                 {% endfor %}
 
         </div>
