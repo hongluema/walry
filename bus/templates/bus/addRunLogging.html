@@ -78,7 +78,7 @@
                     <label for="peoples" class="col-sm-2 control-label">总人数</label>
                     <div class="col-sm-2">
                       <input type="number" class="form-control" name="peoples" id="peoples" placeholder="总人数">
-                        <span id="normal" ></span>
+                        <div id="normal" ></div>
                     </div>
                 </div>
 
@@ -106,7 +106,7 @@
             $("#peoples").change(function(){
                 var peoples = $("#peoples").val();
                 var money = peoples*40;
-              $("#normal").html("按每人都是四十的票价，总收入应该是："money+"元");
+              $("#normal").html("<span>按每人都是四十的票价，总收入应该是：money+元</span>");
             });
             $('#save').on('click', function () {
                 var options = $("#selectBusNumber").val();
