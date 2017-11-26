@@ -76,8 +76,9 @@
                 </div>
                 <div class="form-group">
                     <label for="peoples" class="col-sm-2 control-label">总人数</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-2">
                       <input type="number" class="form-control" name="peoples" id="peoples" placeholder="总人数">
+                        <span id="normal" ></span>
                     </div>
                 </div>
 
@@ -96,9 +97,16 @@
     <script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-            $("#real_money").change(function(){
-                var money = $("#real_money").val();
+            $("#other_money").change(function(){
+                var money1 = $("#real_money").val();
+                var money2 = $("#other_money").val();
+                var money = money1 + money2;
               $("#sum_money").val(money);
+            });
+            $("#peoples").change(function(){
+                var peoples = $("#peoples").val();
+                var money = peoples*40;
+              $("#normal").html("按每人都是四十的票价，总收入应该是："money+"元");
             });
             $('#save').on('click', function () {
                 var options = $("#selectBusNumber").val();
