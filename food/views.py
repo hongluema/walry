@@ -200,7 +200,8 @@ def show_order(request, response, content):
             new_order.create_time = datetime.now()
             new_order.is_delete = 0
             new_order.save()
-            info = {"food_id": food_id, "price": str(food_id.price * number)}
+            food = Food.objects.get(food_id=food_id)
+            info = {"food_id": food_id, "price": str(food.price * number)}
             content["infp"] = info
     else:
         order = Order.objects.filter(table=table, status=5000).order_by("-create_time").first()
@@ -214,8 +215,8 @@ def show_order(request, response, content):
             order.cart = cart
             order.customers = customers
             order.save()
-
-            info = {"food_id": food_id, "price": str(food_id.price * number)}
+            food = Food.objects.get(food_id=food_id)
+            info = {"food_id": food_id, "price": str(food.price * number)}
             content["info"] = info
             # return content
             # 小程序本地存储购物车
@@ -231,7 +232,8 @@ def show_order(request, response, content):
             new_order.create_time = datetime.now()
             new_order.is_delete = 0
             new_order.save()
-            info = {"food_id": food_id, "price": str(food_id.price * number)}
+            food = Food.objects.get(food_id=food_id)
+            info = {"food_id": food_id, "price": str(food.price * number)}
             content["infp"] = info
 
 @wrap
