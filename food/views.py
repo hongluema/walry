@@ -235,7 +235,7 @@ def show_order(request, response, content):
             new_order.store_id = "暂不设定"
             new_order.table = int(table)
             new_order.status = 5000
-            new_order.cart = {food_id: number}
+            new_order.cart = json.dumps({food_id: number})
             customers = []
             customers.append(openid)
             new_order.customers = json.dumps(customers)
