@@ -228,7 +228,9 @@ def show_order(request, response, content):
             new_order.table = int(table)
             new_order.status = 5000
             new_order.cart = {food_id: number}
-            new_order.customers = json.dumps([].append(openid))
+            customers = []
+            customers.append(openid)
+            new_order.customers = json.dumps(customers)
             new_order.create_time = datetime.now()
             new_order.is_delete = 0
             new_order.save()
