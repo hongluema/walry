@@ -69,6 +69,7 @@ class Order(models.Model):
     store_id = models.CharField(max_length=64, verbose_name="店铺id", default="")
     table = models.IntegerField(verbose_name="桌号",default=1)
     foods = models.TextField(verbose_name="已经点的菜列表",default="[]")
+    cart = models.TextField(verbose_name="购物车",default="{}")
     customers = models.TextField(verbose_name="顾客列表",default="[]")
     create_time = models.DateTimeField(verbose_name="下单时间",auto_now_add=True)
     status = models.IntegerField(verbose_name="订单状态，5000是未下单，9000是已下单",default=5000)
