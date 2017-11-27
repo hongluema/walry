@@ -219,7 +219,8 @@ def show_order(request, response, content):
             else:
                 cart.update({food_id: number})
             customers = json.loads(order.customers)  # 顾客
-            customers.append(openid)
+            if openid not in customers:
+                customers.append(openid)
             order.cart = json.dumps(cart)
             order.customers = json.dumps(customers)
             order.save()
