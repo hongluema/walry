@@ -107,6 +107,133 @@ def all_food(request, response, content):
     pass
 
 #大家共同点菜系统
+"""
+原理：
+    1.先判断该桌是下过单还是未下单，
+    2.判断扫码的人是否已经扫过该桌，
+    customers = json.loads(customers) if customers else []
+    foods = json.loads(foods) if foods else []
+    cart = {"wecxada":number,"asdasddf":number}
+        for i in cart:
+            food = Food.objects.filter(food_id = i).first()
+            if food:
+                food_info = {"food_img":food.food_img,"name":food.name,\
+                "price":food.price,"number":cart[i]}
+            foods.append(food_info)
+            
+            
+    #展示菜单
+    food_id = request.POST["food_id"] #菜id
+    number = request.POST["number"] #菜数量
+    table = request.POST["table"] #桌号
+    openid = request.POST["openid"] #用户openid
+    is_order = Order.objects.filter(table=table,status=9000,customers__contains=openid).order_by("-create_time").first()
+    if is_order: #本桌已经下过单
+        order = Order.objects.filter(table=table,status=9000).order_by("-create_time").first()
+        customers = json.loads(order.customers) #所有未下单时扫过码的顾客
+        if openid in customers: #在最近一次就餐的客人中有该用户信息，认为是加菜
+            foods = json.loads(order.foods) #已经点过的菜信息
+            menu_info #菜单信息
+        else: #默认为是新的一桌客人
+            menu_info #菜单信息
+        
+    else: #本桌未下单,但是菜加入购物车
+        order = Order.objects.filter(table=table,status=5000).order_by("-create_time").first()
+        if order: #已经有人把菜加入购物车了，但是还没下单
+            customers.append(openid)
+            cart = json.loads(order.cart) #购物车
+            cart.update({food_id:number})
+            customers = json.loads(order.customers) #顾客
+            customers.append(openid)
+            order.cart = cart
+            order.customers = customers
+            order.save()
+            
+            info = {"food_id":food_id,"price":str(food_id.price*number),\
+            ...}
+            return info
+            # 小程序本地存储购物车
+            # cart = {"wecxada":number,"asdasddf":number}
+        else: #还没有人把菜加入购物车
+            new_order = Order()
+            new_order.order_id = rand_str(12)
+            new_order.store_id = ""
+            new_order.table = int(table)
+            new_order.status = 5000
+            new_order.cart = {food_id:number}
+            new_order.customers = [].append(openid)
+            new_order.create_time = datetime.now()
+            new_order.is_delete = 0
+            new_order.save()
+            info = {"food_id":food_id,"price":str(food_id.price*number),\
+            ...}
+            return info
+            
+"""
+#<1> 第一个人点菜，加入购物车，创建订单，openid加入customers ，条件：openid not in customers ,status=9000, table=table
+#<2> 其他人点菜加入购物车,不创建订单，openid加入customers，条件：status=5000,table=table
+#<3> 下单 条件：status=5000,table=table
+#<4> 老用户加菜， 条件：status=9000,table=table,openid in customers
+@wrap
+def show_order(request, response, content):
+    # 展示菜单
+    food_id = request.POST["food_id"]  # 菜id
+    number = request.POST["number"]  # 菜数量
+    table = request.POST["table"]  # 桌号
+    openid = request.POST["openid"]  # 用户openid
+    order = Order.objects.filter(table=table, status=9000).order_by("-create_time").first() #该桌最近一次订单是否已经下过单
+    if order:  # 本桌已经下过单
+        # order = Order.objects.filter(table=table, status=9000).order_by("-create_time").first()
+        customers = json.loads(order.customers)  # 所有未下单时扫过码的顾客
+        if openid in customers:  # 在最近一次就餐的客人中有该用户信息，认为是加菜
+            foods = json.loads(order.foods)  # 已经点过的菜信息
+            menu_info = "menu_info"  # 菜单信息
+            content["menu_info"] = menu_info
+        else:  # 默认为是新的一桌客人
+            new_order = Order()
+            new_order.order_id = rand_str(12)
+            new_order.store_id = "暂不设定"
+            new_order.table = int(table)
+            new_order.status = 5000
+            new_order.cart = {food_id: number}
+            new_order.customers = [].append(openid)
+            new_order.create_time = datetime.now()
+            new_order.is_delete = 0
+            new_order.save()
+            info = {"food_id": food_id, "price": str(food_id.price * number)}
+            content["infp"] = info
+    else:
+        order = Order.objects.filter(table=table, status=5000).order_by("-create_time").first()
+        if order:  # 已经有人把菜加入购物车了，但是还没下单
+            customers = json.loads(order.customers)
+            customers.append(openid)
+            cart = json.loads(order.cart)  # 购物车
+            cart.update({food_id: number})
+            customers = json.loads(order.customers)  # 顾客
+            customers.append(openid)
+            order.cart = cart
+            order.customers = customers
+            order.save()
+
+            info = {"food_id": food_id, "price": str(food_id.price * number)}
+            content["info"] = info
+            # return content
+            # 小程序本地存储购物车
+            # cart = {"wecxada":number,"asdasddf":number}
+        else:  # 还没有人把菜加入购物车
+            new_order = Order()
+            new_order.order_id = rand_str(12)
+            new_order.store_id = "暂不设定"
+            new_order.table = int(table)
+            new_order.status = 5000
+            new_order.cart = {food_id: number}
+            new_order.customers = [].append(openid)
+            new_order.create_time = datetime.now()
+            new_order.is_delete = 0
+            new_order.save()
+            info = {"food_id": food_id, "price": str(food_id.price * number)}
+            content["infp"] = info
+
 @wrap
 def to_order(request,response,content):
     store_id = request.POST["store_id"]  #店铺id
@@ -116,7 +243,9 @@ def to_order(request,response,content):
     not_end = Order.objects.filter(table=table,customs_contains = opneid,create_time__gte=three_hours).order_by("-create_time").first() #判断是不是同一桌，
     #如果三个小时内找到了该openid在该桌上消费过，就自动默认为是这顿饭还没吃完
     if not_end: #还没吃完呢
-        foods = json.dumps(not_end.foods) #已经点过的菜单
+        foods = json.loads(not_end.foods) #已经点过的菜单
     else: #已经吃完了
-        pass
+        order = Order.objects.filter(table=table)
+        order.table = table
+        order.customers = []
 

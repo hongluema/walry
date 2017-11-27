@@ -12,4 +12,5 @@ urlpatterns = [
     url(r'^createFoodFail/$', views.createFood_fail),#添加菜失败
     url(r'^createGroupSuccess/$', views.createGroup_success),#添加菜系成功
     url(r'^createGroupFail/$', views.createGroup_fail),#添加菜系失败
+    url(r'^showOrder/$', views.show_order),#显示菜单
 ]
