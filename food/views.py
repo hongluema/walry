@@ -178,7 +178,7 @@ def all_food(request, response, content):
 def show_order(request, response, content):
     # 展示菜单
     food_id = request.POST["food_id"]  # 菜id
-    number = request.POST["number"]  # 菜数量
+    number = int(request.POST["number"])  # 菜数量
     table = request.POST["table"]  # 桌号
     openid = request.POST["openid"]  # 用户openid
     order = Order.objects.filter(table=table, status=9000).order_by("-create_time").first() #该桌最近一次订单是否已经下过单
