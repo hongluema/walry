@@ -209,7 +209,14 @@ def show_order(request, response, content):
             customers = json.loads(order.customers)
             customers.append(openid)
             cart = json.loads(order.cart)  # 购物车
-            cart.update({food_id: number})
+            is_tixing = request.POST.get("is_tixing",0)
+            if food_id in cart:
+                if not is_tixing:
+                    print "您已经点过该菜，请确认是否再点一份"
+                else:
+                    cart[food_id] = cart[food_id] + number
+            else:
+                cart.update({food_id: number})
             customers = json.loads(order.customers)  # 顾客
             customers.append(openid)
             order.cart = cart
