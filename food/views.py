@@ -208,6 +208,7 @@ def show_order(request, response, content):
         if order:  # 已经有人把菜加入购物车了，但是还没下单
             customers = json.loads(order.customers)
             customers.append(openid)
+            print ">>>order.cart",order.cart
             cart = json.loads(order.cart)  # 购物车
             is_tixing = request.POST.get("is_tixing",0)
             if food_id in cart:
@@ -219,8 +220,8 @@ def show_order(request, response, content):
                 cart.update({food_id: number})
             customers = json.loads(order.customers)  # 顾客
             customers.append(openid)
-            order.cart = cart
-            order.customers = customers
+            order.cart = json.dumps(cart)
+            order.customers = json.dumps(customers)
             order.save()
             food = Food.objects.get(food_id=food_id)
             info = {"food_id": food_id, "price": str(food.price * number)}
