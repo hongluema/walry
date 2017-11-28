@@ -269,11 +269,11 @@ def cais(request,response,content):
             food_id = request.GET["food_id"]
             f = Food.objects.filter(food_id=food_id).first()
             info = {"name":f.name,"price":str(f.price)}
-            content[info] = info
+            content["info"] = info
         else:
             foods = Food.objects.filter(is_delete=0)
             info = [{"name":f.name,"price":str(f.price)} for f in foods]
-            content[info] = info
+            content["info"] = info
     elif request.method == "POST": #添加
         group_id = request.POST["group_id"]
         store_id = request.POST["store_id"]
