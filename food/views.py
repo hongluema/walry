@@ -298,7 +298,7 @@ def cais(request,response,content):
     elif request.method == "PUT": #修改
         put = QueryDict(request.body)
         food_id = put["food_id"]
-        name = request.PUT["name"]
+        name = put["name"]
         food = Food.objects.filter(food_id=food_id,is_delete=0).first()
         food.name = name
         food.save()
