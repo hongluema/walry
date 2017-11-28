@@ -271,7 +271,7 @@ def cais(request,response,content):
             info = {"name":f.name,"price":str(f.price)}
             content[info] = info
         else:
-            foods = Food.objects.all(is_delete=0)
+            foods = Food.objects.filter(is_delete=0)
             info = [{"name":f.name,"price":str(f.price)} for f in foods]
             content[info] = info
     elif request.method == "POST": #添加
