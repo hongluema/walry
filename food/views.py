@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 from weixin.utils.common import wrap
 
 from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, QueryDict
 from django.views.decorators.csrf import csrf_exempt
 import json
 from datetime import datetime, timedelta
@@ -296,7 +296,8 @@ def cais(request,response,content):
         food.save()
         content["info"] = {"msg":"成功"}
     elif request.method == "PUT": #修改
-        food_id = request.PUT["food_id"]
+        put = QueryDict(request.body)
+        food_id = put["food_id"]
         name = request.PUT["name"]
         food = Food.objects.filter(food_id=food_id,is_delete=0).first()
         food.name = name
@@ -304,7 +305,8 @@ def cais(request,response,content):
         info = {"msg":"更新名字成功","name":name}
         content["info"] = info
     elif request.method == "DELETE": #删除
-        food_id = request.DELETE["food_id"]
+        delete = QueryDict(request.body)
+        food_id = delete["food_id"]
         food = Food.objects.filter(food_id=food_id,is_delete=0).first()
         food.is_delete = 1
         food.save()
