@@ -262,3 +262,54 @@ def to_order(request,response,content):
         order.table = table
         order.customers = []
 
+@wrap #RESTFUL风格的测试用例
+def cais(request,response,content):
+    if request.method == "GET": #查询
+        if request.GET:
+            food_id = request.GET["food_id"]
+            f = Food.objects.filter(food_id=food_id).first()
+            info = {"name":f.name,"price":str(f.price)}
+            content[info] = info
+        else:
+            foods = Food.objects.all(is_delete=0)
+            info = [{"name":f.name,"price":str(f.price)} for f in foods]
+            content[info] = info
+    elif request.method == "POST": #添加
+        group_id = request.POST["group_id"]
+        store_id = request.POST["store_id"]
+        name = request.POST["name"]
+        desc = request.POST["desc"]
+        food_img = request.POST["food_img"]
+        price = request.POST["price"]
+        sequence = int(request.POST.get("sequence",1))
+        is_delete = int(request.POST.get("is_delete",0))
+        food = Food()
+        food.food_id = rand_str(8)
+        food.group_id = group_id
+        food.store_id = store_id
+        food.name = name
+        food.desc = desc
+        food.food_img = food_img
+        food.price = change_money(price)
+        food.sequence = sequence
+        food.is_delete = is_delete
+        food.save()
+        content["info"] = {"msg":"成功"}
+    elif request.method == "PUT": #修改
+        food_id = request.PUT["food_id"]
+        name = request.PUT["name"]
+        food = Food.objects.filter(food_id=food_id,is_delete=0).first()
+        food.name = name
+        food.save()
+        info = {"msg":"更新名字成功","name":name}
+        content["info"] = info
+    elif request.method == "DELETE": #删除
+        food_id = request.DELETE["food_id"]
+        food = Food.objects.filter(food_id=food_id,is_delete=0).first()
+        food.is_delete = 1
+        food.save()
+        info = {"msg": "菜删除成功"}
+        content["info"] = info
+
+
+
