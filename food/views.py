@@ -271,8 +271,8 @@ def cais(request,response,content):
             info = {"name":f.name,"price":str(f.price)}
             content["info"] = info
         else:
-            # foods = Food.objects.filter(is_delete=0,create_time__day=datetime.today().strftime("%d"))
-            foods = Food.objects.filter(is_delete=0,create_time__day="28")
+            foods = Food.objects.filter(is_delete=0,create_time__day=datetime.today().strftime("%d"))
+            # foods = Food.objects.filter(is_delete=0,create_time__day="28")
             print ">>>foods: ",foods
             info = [{"name":f.name,"price":str(f.price), "time":f.create_time.strftime("%Y-%m-%d %H:%M:%S")} for f in foods]
             content["info"] = info
