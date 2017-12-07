@@ -24,4 +24,5 @@ urlpatterns = [
     url(r'^users/',include("users.urls")),
     url(r'^food/',include("food.urls")),
     url(r'^bus/',include("bus.urls")),
+    url(r'^face/',include("face.urls")),
 ]
