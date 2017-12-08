@@ -5,5 +5,6 @@ from . import views
 app_name = "face"
 
 urlpatterns = [
-    # url(r'^addRun/$', views.AddRunLoggingView.as_view()),#添加运营记录
+    url(r'^cookieGet/$', views.cookie_get),#获取cookie
+    url(r'^cookieSet/$', views.cookie_set),#设置cookie
 ]
