@@ -18,7 +18,7 @@ def cookie_get(request):
 
     sid = request.COOKIES["sid"]
 
-    if sid in sessions:
+    if sid in sessions.keys():
         print ">>>哈哈 获取的sessionid对的上，找到了登录的人"
     return HttpResponse("你好")
 
