@@ -14,11 +14,11 @@ from django.contrib.sessions.models import Session
 def cookie_get(request):
     print ">>>cookie: ",request.COOKIES
     sessions = request.session
-    print ">>>sessions: ",request.session
+    print ">>>sessions: ",request.session.keys()
 
     sid = request.COOKIES["sid"]
 
-    if sid in sessions.keys():
+    if sid in sessions["sid"]:
         print ">>>哈哈 获取的sessionid对的上，找到了登录的人"
     return HttpResponse("你好")
 
