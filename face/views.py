@@ -9,10 +9,13 @@ import json
 from food.utils.common import rand_str,timestamp,create_token,change_money
 from django.views.generic import View, TemplateView
 import logging
+from django.contrib.sessions.models import Session
 
 def cookie_get(request):
     print ">>>cookie: ",request.COOKIES
-    print ">>>session: ",request.session
+    print ">>>session: ",request.session.session_key
+    for s in Session.objects.all():
+        print ">>> user session_key:",s.session_key 
     sid = request.COOKIES["sid"]
     if sid == request.session["sid"]:
         print ">>>哈哈 获取的sid对的上，找到了登录的人"
