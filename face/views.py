@@ -16,7 +16,7 @@ def cookie_get(request):
     print ">>>session: ",request.session.session_key
     users_session_key = Session.objects.all().values("session_key")
     for s in users_session_key:
-        print ">>> user session_key:",s.session_key
+        print ">>> user session_key:",s
     sid = request.COOKIES["sid"]
     if sid == request.session["sid"]:
         print ">>>哈哈 获取的sid对的上，找到了登录的人"
