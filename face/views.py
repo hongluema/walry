@@ -14,7 +14,7 @@ from django.contrib.sessions.models import Session
 def cookie_get(request):
     print ">>>cookie: ",request.COOKIES
     sessions = request.session
-    print ">>>sessions: ",request.sessions
+    print ">>>sessions: ",request.session
 
     sid = request.COOKIES["sid"]
 
