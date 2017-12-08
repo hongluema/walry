@@ -16,6 +16,10 @@ def cookie_get(request):
 
 def cookie_set(request):
     resp = HttpResponse("设置cookie成功")
-    resp.set_cookie("name","mahonglue")
+    sid = rand_str(12) #sessionId
+    request.session["sid"] = sid
+    resp.set_cookie("sid",sid)
     return resp
+
+
 
