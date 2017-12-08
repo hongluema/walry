@@ -12,6 +12,9 @@ import logging
 
 def cookie_get(request):
     print ">>>cookie: ",request.COOKIES
+    sid = request.COOKIES["sid"]
+    if sid == request.session["sid"]:
+        print ">>>哈哈 获取的sid对的上，找到了登录的人"
     return HttpResponse("你好")
 
 def cookie_set(request):
