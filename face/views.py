@@ -14,8 +14,9 @@ from django.contrib.sessions.models import Session
 def cookie_get(request):
     print ">>>cookie: ",request.COOKIES
     print ">>>session: ",request.session.session_key
-    for s in Session.objects.all():
-        print ">>> user session_key:",s.session_key 
+    users_session_key = Session.objects.all().values("session_key")
+    for s in users_session_key:
+        print ">>> user session_key:",s.session_key
     sid = request.COOKIES["sid"]
     if sid == request.session["sid"]:
         print ">>>哈哈 获取的sid对的上，找到了登录的人"
