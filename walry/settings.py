@@ -85,10 +85,10 @@ WSGI_APPLICATION = 'walry.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'walry',
-        'USER': 'root',
-        'PASSWORD': '123456',
-        'HOST': '106.15.177.204',
+        'NAME': '*',
+        'USER': '*',
+        'PASSWORD': '*',
+        'HOST': '***.**.***.***',
         'PORT': '3306',
         'OPTIONS': {'charset': 'utf8'}
     },
